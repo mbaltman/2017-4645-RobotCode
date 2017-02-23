@@ -31,8 +31,8 @@ public class Climbing extends Subsystem
     }
     public void startClimb()
     {
-    	climbingTopMotor.set(1);
-        climbingBottomMotor.set(1);
+    	climbingTopMotor.set(-1);
+        climbingBottomMotor.set(-1);
     
     }
 }
