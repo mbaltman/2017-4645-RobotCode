@@ -1,7 +1,9 @@
 package org.usfirst.frc.team4645.robot.commands;
 
+import org.usfirst.frc.team4645.robot.Robot;
+
 import edu.wpi.first.wpilibj.command.Command;
-import org.usfirst.frc.team4645.robot.*;
+
 /**
  *
  */
@@ -18,14 +20,12 @@ public class ResetPushGearCommand extends Command {
     }
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute()
-    {
+    protected void execute() {
     	Robot.gearSubsystem.resetPushGear();
     }
 
     // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() 
-    {
+    protected boolean isFinished() {
         return true;
     }
 

@@ -29,26 +29,30 @@ public class PlaceGearCommand extends CommandGroup
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	
-    	//
-    	
     	//faces the gear
+    	
     	addSequential(new MakeParallel(gearDegree));
     	
     	//updates vision values and moves in X, drops gear
     	double[] distanceInformation=(Robot.visionSubsystem.returnGearInformation());
     	addSequential(new MoveToX(0-distanceInformation[0]));
+    	
     	addSequential(new DropGearCommand());
         
     	//updates vision values and moves in Y, pushes gear
     	distanceInformation=(Robot.visionSubsystem.returnGearInformation());
-     	addSequential(new MoveToY(RobotMap.GEAR_DISTANCE-distanceInformation[1]));
+     	addSequential(new MoveToY(RobotMap.GEAR_DISTANCEY+distanceInformation[1]));
+     
      	addSequential(new PushGearCommand());
      	
      	//backs up and resets gear servos
-    	addSequential( new MoveToY(backUpDistance));
-    	addSequential(new ResetGearCommand());
+    	addSequential( new MoveToY(backUpDistance/2));
     	
+    	addSequential(new ResetPushGearCommand());
+    	
+    	addSequential( new MoveToY(backUpDistance/2));
+    	
+    	addSequential(new ResetDropGearCommand());
     	
     	
     	
