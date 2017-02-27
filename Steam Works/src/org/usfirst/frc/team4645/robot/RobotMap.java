@@ -68,7 +68,7 @@ public class RobotMap
 	public static final double farY = 3;
 	
 	//gear distance, TBD
-	public static final double GEAR_DISTANCE = .20;
+	public static final double GEAR_DISTANCEY = .20;
 	
 	
 	
