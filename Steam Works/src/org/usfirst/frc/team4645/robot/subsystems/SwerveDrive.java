@@ -75,6 +75,18 @@ public class SwerveDrive extends Subsystem
 		return rotAngle;
 	}
 	
+	
+	
+public double getRotationAngleGyro(double joystickZ, double finalRad, double gyro) 
+{
+	double angleZ = 90 * Math.signum(joystickZ);
+	double rotAngle = angleZ + finalRad - gyro;
+	rotAngle *= (Math.PI / 180);
+	
+	return rotAngle;
+}
+	
+	
 	public double getRotCompX (double angle, double mag) 
 	{
 		double rotCompX = Math.cos(angle) * Math.abs(mag);
@@ -126,10 +138,10 @@ public class SwerveDrive extends Subsystem
 		return posDif;
 	}
 	
-	public void setSteeringPosition(CANTalon motor, double curPos, double posDif, double gyroPos, double error)
+	public void setSteeringPosition(CANTalon motor, double curPos, double posDif, double error)
 	{
 		motor.changeControlMode(CANTalon.TalonControlMode.Position);
-		motor.set(curPos + posDif + gyroPos + error);
+		motor.set(curPos + posDif  + error);
 		
 	}
 	
@@ -140,5 +152,6 @@ public class SwerveDrive extends Subsystem
         // Set the default command for a subsystem here.
         setDefaultCommand(new DefaultSwerve());
     }
+    
 }
 
