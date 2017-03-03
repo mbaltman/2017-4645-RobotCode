@@ -15,40 +15,35 @@ public class RobotMap
 	
 	//PWM Ports
 	//motors
-	public static final int driveFR = 0;
+	public static final int driveFR = 9; //0
 	public static final int hangerMotorB = 1;
 	public static final int hangerMotorT = 2;
 	public static final int feederMotor = 3;
-	public static final int driveBL = 5;
+	public static final int driveBL = 4; //5
 	public static final int intakeMotor = 6;
 	//servos
 	public static final int reservoirServo = 7;
-	public static final int gearServoDrop =8;
-	public static final int gearServoPush =9;
+	public static final int gearServoDrop = 8;
+	public static final int gearServoPush = 0; //9
 	
 	
 	//SRX IDs
 	public static final int steerFR = 0;
 	public static final int steerFL = 1;
-	public static final int steerBR = 3;
-	public static final int steerBL = 2;
+	public static final int steerBR = 2;
+	public static final int steerBL = 3;
 	public static final int driveFL = 4;
 	public static final int driveBR = 5;
 	public static final int shooterMotor = 6;
 	
 	
 	//Steering errors
-	/*
-	public static final double FRONTRIGHT_ERROR = 124; //113 enforcer, 124 iron
-	public static final double FRONTLEFT_ERROR = -345; //147 enforcer, -345
-	public static final double BACKRIGHT_ERROR = -49; //64 enforcer, -319
-	public static final double BACKLEFT_ERROR = -319; //21 enforcer, -49
-	*/
 	
-	public static final double FRONTRIGHT_ERROR = 113; //113 enforcer, 124 iron
-	public static final double FRONTLEFT_ERROR = 147; //147 enforcer, -345
-	public static final double BACKRIGHT_ERROR = 64; //64 enforcer, -319
-	public static final double BACKLEFT_ERROR = 21; //21 enforcer, -49
+	
+	public static final double FRONTRIGHT_ERROR = 126; //113 enforcer, 126 iron
+	public static final double FRONTLEFT_ERROR = -207; //147 enforcer, -207 iron
+	public static final double BACKRIGHT_ERROR = -49; //64 enforcer, -49
+	public static final double BACKLEFT_ERROR = 146; //21 enforcer, 146 iron
 	 
 	
 	//Radius angles (degrees) and value (meters)
@@ -68,7 +63,7 @@ public class RobotMap
 	public static final double farY = 3;
 	
 	//gear distance, TBD
-	public static final double GEAR_DISTANCEY = .20;
+	public static final double GEAR_DISTANCE = .20;
 	
 	
 	
