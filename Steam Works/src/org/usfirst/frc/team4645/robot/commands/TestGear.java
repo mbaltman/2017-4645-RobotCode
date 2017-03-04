@@ -30,14 +30,16 @@ public class TestGear extends CommandGroup {
     	
     	//addSequential(new DropGearCommand());
         addSequential(new DropGearCommand());
-        addSequential(new IntakeCommand(),2);
+        addSequential(new IntakeCommand(),1);
     	addSequential(new PushGearCommand());
     	
     	
     	
-    	addSequential(new IntakeCommand(),5);
-    	 addSequential(new ResetPushGearCommand());
-        addSequential(new IntakeCommand(),2);
+    	addSequential(new IntakeCommand(),1);
+    	 
+    	addSequential(new ResetPushGearCommand());
+       
+    	addSequential(new IntakeCommand(),1);
        
     	
         addSequential(new ResetDropGearCommand());

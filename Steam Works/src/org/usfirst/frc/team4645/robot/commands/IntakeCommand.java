@@ -14,18 +14,20 @@ public class IntakeCommand extends Command
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.intakeSubsystem);
+    	//requires(Robot.reservoirSubsystem);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() 
     {
-    	
+    	Robot.reservoirSubsystem.spinIn();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() 
     {
     	Robot.intakeSubsystem.intakeIn();
+    	//Robot.reservoirSubsystem.alternate();
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -44,6 +46,6 @@ public class IntakeCommand extends Command
     // subsystems is scheduled to run
     protected void interrupted() 
     {
-    	
+    	end();
     }
 }

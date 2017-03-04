@@ -154,17 +154,17 @@ public class Robot extends IterativeRobot
         SwerveDrive.gyro.calibrate();
         
         Shooter.shooterMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-        Shooter.shooterMotor.reverseSensor(true);
+        Shooter.shooterMotor.reverseSensor(false);
         //shooter.configEncoderCodesPerRev(80); // if using FeedbackDevice.QuadEncoder
         //shooter.configPotentiometerTurns(XXX), // if using FeedbackDevice.AnalogEncoder or AnalogPot
 
         /* set the peak and nominal outputs, 12V means full */
         Shooter.shooterMotor.configNominalOutputVoltage(+0.0f, -0.0f);
-        Shooter.shooterMotor.configPeakOutputVoltage(0.0f, -12.0f);
-        Shooter.shooterMotor.setF(1.557);
-        Shooter.shooterMotor.setP(4.096);
+        Shooter.shooterMotor.configPeakOutputVoltage(12.0f, 0.0f);
+        Shooter.shooterMotor.setF(0.0086); //1.557
+        Shooter.shooterMotor.setP(0.018); //4.096
        // Shooter.shooterMotor.setI(0); 
-        Shooter.shooterMotor.setD(81.84);
+        Shooter.shooterMotor.setD(0.18); //81.84
 		
 	}
 
@@ -245,19 +245,19 @@ public class Robot extends IterativeRobot
 	public void teleopPeriodic() 
 	{
 		Scheduler.getInstance().run();
-		/*
+		
 		SmartDashboard.putNumber("Shooter speed", Shooter.shooterMotor.getEncVelocity());
 		
-		SmartDashboard.putNumber("Error", Shooter.shooterMotor.getClosedLoopError());
-		*/
+		//SmartDashboard.putNumber("Error", Shooter.shooterMotor.getClosedLoopError());
 		
+		/*
 		SmartDashboard.putNumber("drivingFLPosition", SwerveDrive.drivingMotorFrontLeft.getPosition());
 		SmartDashboard.putNumber("drivingBRPosition", SwerveDrive.drivingMotorBackLeft.getPosition());
 		
 		SmartDashboard.putNumber("curFLDrivePosition", MoveToX.curDrivFLPosition);
 		SmartDashboard.putNumber("curBRDrivePosition", MoveToX.curDrivBRPosition);
 		SmartDashboard.putNumber("drivingDistance", MoveToX.drivingDistance);
-
+		*/
 		
 	}
 
