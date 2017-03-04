@@ -24,38 +24,12 @@ public class ReservoirAlternate extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
+    	//addParallel(new TestShoot());
     	addSequential(new ReservoirInCommand(),1);
-    	addParallel(new TestShoot());
-    	
     	addSequential(new ReservoirSpinOut(),1);
-addSequential(new ReservoirInCommand(),1);
     	
-    	addSequential(new ReservoirSpinOut(),1);
-addSequential(new ReservoirInCommand(),1);
     	
-addSequential(new ReservoirSpinOut(),1);
-addSequential(new ReservoirInCommand(),1);
-addSequential(new ReservoirSpinOut(),1);
-addSequential(new ReservoirInCommand(),1);
-addSequential(new ReservoirSpinOut(),1);
-addSequential(new ReservoirInCommand(),1);
-addSequential(new ReservoirSpinOut(),1);
-addSequential(new ReservoirInCommand(),1);
-addSequential(new ReservoirSpinOut(),1);
-addSequential(new ReservoirInCommand(),1);
-addSequential(new ReservoirSpinOut(),1);
-addSequential(new ReservoirInCommand(),1);
-addSequential(new ReservoirSpinOut(),1);
-addSequential(new ReservoirInCommand(),1);
-addSequential(new ReservoirSpinOut(),1);
-addSequential(new ReservoirInCommand(),1);
-addSequential(new ReservoirSpinOut(),1);
-addSequential(new ReservoirInCommand(),1);
-addSequential(new ReservoirSpinOut(),1);
-addSequential(new ReservoirInCommand(),1);
-addSequential(new ReservoirSpinOut(),1);
-addSequential(new ReservoirInCommand(),1);
-    	
+
     	
     }
 }

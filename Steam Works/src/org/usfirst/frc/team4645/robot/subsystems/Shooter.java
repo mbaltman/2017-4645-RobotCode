@@ -8,6 +8,8 @@ import org.usfirst.frc.team4645.robot.RobotMap;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
 import com.ctre.CANTalon.TalonControlMode;
@@ -41,6 +43,8 @@ public class Shooter extends Subsystem
     	shooterMotor.changeControlMode(TalonControlMode.Speed);
     	shooterMotor.set(speed);
     	
+    	SmartDashboard.putString("stopped", "nah");
+    	
     	//if (shooterMotor.getEncVelocity() < -(speed - 30))
     	//{
     	feederMotor.set(-1);
@@ -50,11 +54,17 @@ public class Shooter extends Subsystem
     		//feederMotor.set(0);
     	//}
     }
+    
+    public void percentShoot(double percent)
+    {
+    	shooterMotor.set(percent);
+    }
     public void shooterStop()
     {
     	shooterMotor.changeControlMode(TalonControlMode.PercentVbus);
     	shooterMotor.set(0);
     	feederMotor.set(0);
+    	SmartDashboard.putString("stopped", "yes");
     }
     
     public void feeder()

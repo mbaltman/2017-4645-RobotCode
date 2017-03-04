@@ -19,7 +19,7 @@ public class OI
 	Button buttonShoot = new JoystickButton(leftJoy, 1);
 	
 	//Button testMakeParallel = new JoystickButton(leftJoy,3);
-	Button testMoveToX = new JoystickButton(leftJoy, 4);
+	//Button testMoveToX = new JoystickButton(leftJoy, 4);
 	
 	//Button testMoveToY = new JoystickButton(leftJoy, 5);
 	Button buttonGear= new JoystickButton(leftJoy,6);
@@ -43,13 +43,13 @@ public class OI
 	    //buttonMiddleGear.whenPressed(new PlaceGearCommand(0,1));
 		//buttonRightGear.whenPressed(new PlaceGearCommand(-1,1));
 		
-		buttonShoot.whileHeld(new ReservoirAlternate());
+		buttonShoot.whileHeld(new TestShoot());
 		
 		
 		//buttonIntake.whileHeld(new IntakeCommand());
 		buttonClimb.whileHeld(new ClimbCommand());
 		//testMakeParallel.whenPressed(new MakeParallel(45));
-		testMoveToX.whenPressed(new MoveToX(-1));
+		//testMoveToX.whenPressed(new MoveToX(-1));
 		buttonIntake.whileHeld(new IntakeCommand());
 		buttonGear.whenPressed(new TestGear());
 		

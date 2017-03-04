@@ -3,6 +3,8 @@ package org.usfirst.frc.team4645.robot.commands;
 import org.usfirst.frc.team4645.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 
 /**
  *
@@ -20,7 +22,9 @@ public class ReservoirSpinOut extends Command {
     }
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
+    protected void execute() 
+    {
+    	SmartDashboard.putString("reservoir", "spin out");
     	Robot.reservoirSubsystem.spinOut();
     }
 

@@ -22,7 +22,9 @@ public class ReservoirInCommand extends Command {
     }
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
+    protected void execute() 
+    {
+    	SmartDashboard.putString("reservoir", "inCommand");
     	Robot.reservoirSubsystem.spinIn();
     }
 
@@ -34,6 +36,7 @@ public class ReservoirInCommand extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    
     }
 
     // Called when another command which requires one or more of the same

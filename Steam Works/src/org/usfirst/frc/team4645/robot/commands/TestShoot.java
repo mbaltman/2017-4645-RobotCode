@@ -26,7 +26,7 @@ public class TestShoot extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() 
     {
-    	Robot.shooterSubsystem.shoot(-550);
+    	Robot.shooterSubsystem.shoot(82500);
     	//Robot.reservoirSubsystem.spinIn();
     }
 
@@ -40,13 +40,13 @@ public class TestShoot extends Command {
     // Called once after isFinished returns true
     protected void end() 
     {
-    	//new TestShoot2();
-    	//cancel();
+    	Robot.shooterSubsystem.shooterStop();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() 
     {
+    	end();
     }
 }

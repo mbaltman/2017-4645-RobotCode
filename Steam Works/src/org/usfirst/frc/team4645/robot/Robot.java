@@ -4,12 +4,14 @@ package org.usfirst.frc.team4645.robot;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.*;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.vision.VisionThread;
+import edu.wpi.first.wpilibj.command.Subsystem;
+
 
 import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;
@@ -40,10 +42,10 @@ public class Robot extends IterativeRobot
 	
 	public static OI oi;
 	//Command Groups
-	Command CenterAndShootCommand;
-    Command PlaceGearCommand;
+	//Command CenterAndShootCommand;
+    //PlaceGearCommand PlaceGearCommand;
 	//Autonomous Commands
-    Command autonomousCommand;
+    CommandGroup AutonomousCommand;
     
     
     public static SendableChooser<String> allianceChooser = new SendableChooser<>();
@@ -53,6 +55,7 @@ public class Robot extends IterativeRobot
     public static SendableChooser<Double> shooterChooser = new SendableChooser<>();
     
     //basic Commands
+    /*
     Command ClimbCommand;
     Command DefaultSwerve;
 	Command DropGearCommand;
@@ -64,6 +67,7 @@ public class Robot extends IterativeRobot
 	Command ResetGyro;
 	Command ShootCommand;
 	Command testValuesVision;
+	*/
 	
     public static int allianceConstant=1;
 	public String allianceColor= null;
@@ -103,6 +107,7 @@ public class Robot extends IterativeRobot
 		SmartDashboard.putData("Choose Alliance", allianceChooser);
 		SmartDashboard.putData("Choose the Shooter Distance", shooterChooser);
 		
+		
 		SwerveDrive.steeringMotorFrontRight.setFeedbackDevice(FeedbackDevice.AnalogEncoder);
         SwerveDrive.steeringMotorFrontRight.configNominalOutputVoltage(+0.0f, -0.0f);
         SwerveDrive.steeringMotorFrontRight.configPeakOutputVoltage(+12.0f, -12.0f);
@@ -133,9 +138,12 @@ public class Robot extends IterativeRobot
         
         SwerveDrive.drivingMotorFrontLeft.setFeedbackDevice(FeedbackDevice.QuadEncoder);
         SwerveDrive.drivingMotorFrontLeft.configNominalOutputVoltage(+0.0f, -0.0f);
-        SwerveDrive.drivingMotorFrontLeft.configPeakOutputVoltage(+12.0f, 0f);
-        SwerveDrive.drivingMotorFrontLeft.setP(0);
-        SwerveDrive.drivingMotorFrontLeft.setD(0);
+        SwerveDrive.drivingMotorFrontLeft.configPeakOutputVoltage(+12.0f, 0.0f);
+        SwerveDrive.drivingMotorFrontLeft.setP(2);
+        SwerveDrive.drivingMotorFrontLeft.setI(0);
+        SwerveDrive.drivingMotorFrontLeft.setD(100);
+        
+        //SwerveDrive.drivingMotorFrontLeft.enableBrakeMode(true);
         
         SwerveDrive.drivingMotorBackRight.setFeedbackDevice(FeedbackDevice.QuadEncoder);
         SwerveDrive.drivingMotorBackRight.configNominalOutputVoltage(+0.0f, -0.0f);
@@ -146,17 +154,17 @@ public class Robot extends IterativeRobot
         SwerveDrive.gyro.calibrate();
         
         Shooter.shooterMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-        Shooter.shooterMotor.reverseSensor(true);
+        Shooter.shooterMotor.reverseSensor(false);
         //shooter.configEncoderCodesPerRev(80); // if using FeedbackDevice.QuadEncoder
         //shooter.configPotentiometerTurns(XXX), // if using FeedbackDevice.AnalogEncoder or AnalogPot
 
         /* set the peak and nominal outputs, 12V means full */
         Shooter.shooterMotor.configNominalOutputVoltage(+0.0f, -0.0f);
-        Shooter.shooterMotor.configPeakOutputVoltage(0.0f, -12.0f);
-        Shooter.shooterMotor.setF(1.557);
-        Shooter.shooterMotor.setP(4.096);
+        Shooter.shooterMotor.configPeakOutputVoltage(12.0f, 0.0f);
+        Shooter.shooterMotor.setF(0.0086); //1.557
+        Shooter.shooterMotor.setP(0.018); //4.096
        // Shooter.shooterMotor.setI(0); 
-        Shooter.shooterMotor.setD(81.84);
+        Shooter.shooterMotor.setD(0.18); //81.84
 		
 	}
 
@@ -193,7 +201,7 @@ public class Robot extends IterativeRobot
 	public void autonomousInit() {
 		
 		
-       autonomousCommand = new Autonomous();
+       AutonomousCommand = new Autonomous();
        
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -203,9 +211,9 @@ public class Robot extends IterativeRobot
 		 */
 
 		// schedule the autonomous command (example)
-		if (autonomousCommand != null)
+		if (AutonomousCommand != null)
 		{
-			autonomousCommand.start();
+			AutonomousCommand.start();
 		}
 	}
 
@@ -224,8 +232,8 @@ public class Robot extends IterativeRobot
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		if (autonomousCommand != null)
-			autonomousCommand.cancel();
+		if (AutonomousCommand != null)
+			AutonomousCommand.cancel();
 		
 		auto = false;
 	}
@@ -237,10 +245,19 @@ public class Robot extends IterativeRobot
 	public void teleopPeriodic() 
 	{
 		Scheduler.getInstance().run();
+		
 		SmartDashboard.putNumber("Shooter speed", Shooter.shooterMotor.getEncVelocity());
 		
-		SmartDashboard.putNumber("Error", Shooter.shooterMotor.getClosedLoopError());
+		//SmartDashboard.putNumber("Error", Shooter.shooterMotor.getClosedLoopError());
 		
+		/*
+		SmartDashboard.putNumber("drivingFLPosition", SwerveDrive.drivingMotorFrontLeft.getPosition());
+		SmartDashboard.putNumber("drivingBRPosition", SwerveDrive.drivingMotorBackLeft.getPosition());
+		
+		SmartDashboard.putNumber("curFLDrivePosition", MoveToX.curDrivFLPosition);
+		SmartDashboard.putNumber("curBRDrivePosition", MoveToX.curDrivBRPosition);
+		SmartDashboard.putNumber("drivingDistance", MoveToX.drivingDistance);
+		*/
 		
 	}
 

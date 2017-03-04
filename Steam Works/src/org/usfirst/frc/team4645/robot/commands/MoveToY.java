@@ -23,6 +23,7 @@ public class MoveToY extends Command
 	
     public MoveToY(double distance) 
     {
+    	
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.swerveDrive);
@@ -75,10 +76,10 @@ public class MoveToY extends Command
     	double positionDifBL = Robot.swerveDrive.getPositionDif(newXMagBL, newYMagBL);
     	
     	//set steering motor position
-    	Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorFrontRight, curFRPosition, positionDifFR, 0, RobotMap.FRONTRIGHT_ERROR);
-		Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorFrontLeft, curFLPosition, positionDifFL, 0, RobotMap.FRONTLEFT_ERROR);
-		Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorBackRight, curBRPosition, positionDifBR, 0, RobotMap.BACKRIGHT_ERROR);
-		Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorBackLeft, curBLPosition, positionDifBL, 0, RobotMap.BACKLEFT_ERROR);
+    	Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorFrontRight, curFRPosition, positionDifFR, RobotMap.FRONTRIGHT_ERROR);
+		Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorFrontLeft, curFLPosition, positionDifFL, RobotMap.FRONTLEFT_ERROR);
+		Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorBackRight, curBRPosition, positionDifBR, RobotMap.BACKRIGHT_ERROR);
+		Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorBackLeft, curBLPosition, positionDifBL, RobotMap.BACKLEFT_ERROR);
 		
 		//set driving motor output
 		boolean finalFR = positionDifFR + RobotMap.FRONTRIGHT_ERROR > -5 && positionDifFR + RobotMap.FRONTRIGHT_ERROR < 5;
@@ -104,16 +105,18 @@ public class MoveToY extends Command
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() 
     {
-    	if (SwerveDrive.drivingMotorFrontLeft.getEncPosition() < curDrivFLPosition + drivingDistance + 2 
-        		&& SwerveDrive.drivingMotorFrontLeft.getEncPosition() > curDrivFLPosition + drivingDistance - 2) 
-	{
-        	if (SwerveDrive.drivingMotorBackRight.getEncPosition() < curDrivBRPosition + drivingDistance + 2
-        			&& SwerveDrive.drivingMotorBackRight.getEncPosition() > curDrivBRPosition + drivingDistance -2) 
+    	if (SwerveDrive.drivingMotorFrontLeft.getEncPosition() < curDrivFLPosition + drivingDistance + 4 
+        		&& SwerveDrive.drivingMotorFrontLeft.getEncPosition() > curDrivFLPosition + drivingDistance - 4) 
+    	{
+        	if (SwerveDrive.drivingMotorBackRight.getEncPosition() < curDrivBRPosition + drivingDistance + 4
+        			&& SwerveDrive.drivingMotorBackRight.getEncPosition() > curDrivBRPosition + drivingDistance -4) 
 		{
         		return true;
         	}
         }
+        
         return false;
+        
     }
 
     // Called once after isFinished returns true

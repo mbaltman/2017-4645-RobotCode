@@ -23,6 +23,7 @@ public class MakeParallel extends Command
 
     public MakeParallel(double desAngle) 
     {
+    	
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	
@@ -47,6 +48,11 @@ public class MakeParallel extends Command
     	double gyroAngle = SwerveDrive.gyro.getAngle();
     	gyroAngle %= 360;
     	if (gyroAngle < 0) {gyroAngle += 360;}
+    	
+    	//possible fix for possible problem
+    	//gyroAngle = 360 - gyroAngle;
+    	
+    	
     	gyroAngle *= Math.PI/180;
     	
     	//find desired components 
@@ -106,10 +112,10 @@ public class MakeParallel extends Command
 		double positionDifBL = Robot.swerveDrive.getPositionDif(newXMagBL, newYMagBL);
 		
 		//set steering motor position
-		Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorFrontRight, curFRPosition, positionDifFR, 0, RobotMap.FRONTRIGHT_ERROR);
-		Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorFrontLeft, curFLPosition, positionDifFL, 0, RobotMap.FRONTLEFT_ERROR);
-		Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorBackRight, curBRPosition, positionDifBR, 0, RobotMap.BACKRIGHT_ERROR);
-		Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorBackLeft, curBLPosition, positionDifBL, 0, RobotMap.BACKLEFT_ERROR);
+		Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorFrontRight, curFRPosition, positionDifFR, RobotMap.FRONTRIGHT_ERROR);
+		Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorFrontLeft, curFLPosition, positionDifFL, RobotMap.FRONTLEFT_ERROR);
+		Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorBackRight, curBRPosition, positionDifBR, RobotMap.BACKRIGHT_ERROR);
+		Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorBackLeft, curBLPosition, positionDifBL, RobotMap.BACKLEFT_ERROR);
 		
 		//set driving motor output
 		
@@ -138,16 +144,18 @@ public class MakeParallel extends Command
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() 
     {
-        if (SwerveDrive.drivingMotorFrontLeft.getEncPosition() < curPositionFL + drivingDistance + 2 
-        		&& SwerveDrive.drivingMotorFrontLeft.getEncPosition() > curPositionFL + drivingDistance - 2)
+        if (SwerveDrive.drivingMotorFrontLeft.getEncPosition() < curPositionFL + drivingDistance + 4 
+        		&& SwerveDrive.drivingMotorFrontLeft.getEncPosition() > curPositionFL + drivingDistance - 4)
 			{
-        	if (SwerveDrive.drivingMotorBackRight.getEncPosition() < curPositionBR + drivingDistance + 2
-        			&& SwerveDrive.drivingMotorBackRight.getEncPosition() > curPositionBR + drivingDistance -2)
+        	if (SwerveDrive.drivingMotorBackRight.getEncPosition() < curPositionBR + drivingDistance + 4
+        			&& SwerveDrive.drivingMotorBackRight.getEncPosition() > curPositionBR + drivingDistance -4)
 				{
         		return true;
         	}
         }
+        
         return false;
+        
     }
 
     // Called once after isFinished returns true

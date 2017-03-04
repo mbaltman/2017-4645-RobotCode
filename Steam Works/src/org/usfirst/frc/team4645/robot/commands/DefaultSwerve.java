@@ -43,30 +43,62 @@ public class DefaultSwerve extends Command
 	SmartDashboard.putNumber("tempYMag", tempYMag);
 	
     	//get gyro position
-    	double gyroPosition = (SwerveDrive.gyro.getAngle()) * (1023/360);
+		double gyroAngle = SwerveDrive.gyro.getAngle(); //new code
+		SmartDashboard.putNumber("gyroAngle", gyroAngle);
+		
+    	double gyroPosition = gyroAngle * (1023.0/360.0); //2.8444
+    	SmartDashboard.putNumber("gyroPosition", gyroPosition);
     	
     	//get wheel positions
+    	
+    	
     	double curFRPosition = Robot.swerveDrive.getPosition(SwerveDrive.steeringMotorFrontRight);
     	double curFLPosition = Robot.swerveDrive.getPosition(SwerveDrive.steeringMotorFrontLeft);
     	double curBRPosition = Robot.swerveDrive.getPosition(SwerveDrive.steeringMotorBackRight);
     	double curBLPosition = Robot.swerveDrive.getPosition(SwerveDrive.steeringMotorBackLeft);
+    	
     	
     	SmartDashboard.putNumber("curFRPosition", curFRPosition);
     	SmartDashboard.putNumber("curFLPosition", curFLPosition);
     	SmartDashboard.putNumber("curBRPosition", curBRPosition);
     	SmartDashboard.putNumber("curBLPosition", curBLPosition);
     	
+    	
     	//get wheel angles
+    	
+    	/*
     	double curFRAngle = Robot.swerveDrive.getAngle(curFRPosition);
     	double curFLAngle = Robot.swerveDrive.getAngle(curFLPosition);
     	double curBRAngle = Robot.swerveDrive.getAngle(curBRPosition);
     	double curBLAngle = Robot.swerveDrive.getAngle(curBLPosition);
+    	*/
+    	          //new code
+    	double curFRAngle = Robot.swerveDrive.getAngle(curFRPosition - gyroPosition);
+    	double curFLAngle = Robot.swerveDrive.getAngle(curFLPosition - gyroPosition);
+    	double curBRAngle = Robot.swerveDrive.getAngle(curBRPosition - gyroPosition);
+    	double curBLAngle = Robot.swerveDrive.getAngle(curBLPosition - gyroPosition);
+    	
     	
     	//get rotation angles
+    	
+    	/*
     	double rotFRAngle = Robot.swerveDrive.getRotationAngle(tempZMag, RobotMap.FRONTRIGHT_RADANGLE);
     	double rotFLAngle = Robot.swerveDrive.getRotationAngle(tempZMag, RobotMap.FRONTLEFT_RADANGLE);
     	double rotBRAngle = Robot.swerveDrive.getRotationAngle(tempZMag, RobotMap.BACKRIGHT_RADANGLE);
     	double rotBLAngle = Robot.swerveDrive.getRotationAngle(tempZMag, RobotMap.BACKLEFT_RADANGLE);
+    	*/
+    	
+    	
+    	           //new code
+    	double rotFRAngle = Robot.swerveDrive.getRotationAngleGyro(tempZMag, RobotMap.FRONTRIGHT_RADANGLE, gyroAngle);
+    	double rotFLAngle = Robot.swerveDrive.getRotationAngleGyro(tempZMag, RobotMap.FRONTLEFT_RADANGLE, gyroAngle);
+    	double rotBRAngle = Robot.swerveDrive.getRotationAngleGyro(tempZMag, RobotMap.BACKRIGHT_RADANGLE, gyroAngle);
+    	double rotBLAngle = Robot.swerveDrive.getRotationAngleGyro(tempZMag, RobotMap.BACKLEFT_RADANGLE, gyroAngle);
+    	
+    	
+    	SmartDashboard.putNumber("rotFRAngle", rotFRAngle * 180 / Math.PI);
+    	
+    	
     	
     	//get rotation components
     	double radXFR = Robot.swerveDrive.getRotCompX(rotFRAngle, tempZMag);
@@ -125,20 +157,14 @@ public class DefaultSwerve extends Command
 		if (max > 0.15) 
 		{
 			
-			Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorFrontRight, curFRPosition, positionDifFR, 0, RobotMap.FRONTRIGHT_ERROR);
-			Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorFrontLeft, curFLPosition, positionDifFL, 0, RobotMap.FRONTLEFT_ERROR);
-			Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorBackRight, curBRPosition, positionDifBR, 0,RobotMap.BACKRIGHT_ERROR);
-			Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorBackLeft, curBLPosition, positionDifBL, 0,RobotMap.BACKLEFT_ERROR);
-			
-			/*
-			Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorFrontRight, curFRPosition, positionDifFR, gyroPosition, RobotMap.FRONTRIGHT_ERROR);
-			Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorFrontLeft, curFLPosition, positionDifFL, gyroPosition, RobotMap.FRONTLEFT_ERROR);
-			Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorBackRight, curBRPosition, positionDifBR, gyroPosition,RobotMap.BACKRIGHT_ERROR);
-			Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorBackLeft, curBLPosition, positionDifBL, gyroPosition,RobotMap.BACKLEFT_ERROR);
-			*/
+			Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorFrontRight, curFRPosition, positionDifFR, RobotMap.FRONTRIGHT_ERROR);
+			Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorFrontLeft, curFLPosition, positionDifFL, RobotMap.FRONTLEFT_ERROR);
+			Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorBackRight, curBRPosition, positionDifBR, RobotMap.BACKRIGHT_ERROR);
+			Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorBackLeft, curBLPosition, positionDifBL, RobotMap.BACKLEFT_ERROR);
 			
 			
-			SwerveDrive.drivingMotorFrontRight.set(totalFR);
+			
+			SwerveDrive.drivingMotorFrontRight.set(-totalFR);
 			SwerveDrive.drivingMotorFrontLeft.set(totalFL);
 			SwerveDrive.drivingMotorBackRight.set(totalBR);
 			SwerveDrive.drivingMotorBackLeft.set(totalBL);
@@ -178,6 +204,7 @@ public class DefaultSwerve extends Command
     	SwerveDrive.drivingMotorFrontLeft.set(0);
     	SwerveDrive.drivingMotorBackRight.set(0);
     	SwerveDrive.drivingMotorBackLeft.set(0);
+    	
     }
     
     
