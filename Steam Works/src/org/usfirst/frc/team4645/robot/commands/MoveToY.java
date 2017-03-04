@@ -8,6 +8,7 @@ import org.usfirst.frc.team4645.robot.subsystems.SwerveDrive;
 import com.ctre.CANTalon.TalonControlMode;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -19,7 +20,6 @@ public class MoveToY extends Command
 	double drivingDistance;
 	
 	double curDrivFLPosition;
-	double curDrivBRPosition;
 	
     public MoveToY(double distance) 
     {
@@ -33,7 +33,6 @@ public class MoveToY extends Command
     	drivingDistance = Math.abs(distance) * 1670.84;
     	
     	curDrivFLPosition = SwerveDrive.drivingMotorFrontLeft.getEncPosition();
-    	curDrivBRPosition = SwerveDrive.drivingMotorBackRight.getEncPosition();
     	
     }
 
@@ -89,13 +88,16 @@ public class MoveToY extends Command
 		
 		if (finalFR && finalFL && finalBR && finalBL)
 		{
+	        SwerveDrive.drivingMotorFrontLeft.configPeakOutputVoltage(+2.0f, 0.0f);
 			SwerveDrive.drivingMotorFrontLeft.changeControlMode(TalonControlMode.Position);
 			SwerveDrive.drivingMotorFrontLeft.set(curDrivFLPosition + drivingDistance);
-			SwerveDrive.drivingMotorBackRight.changeControlMode(TalonControlMode.Position);
-			SwerveDrive.drivingMotorBackRight.set(curDrivBRPosition + drivingDistance);
+		
 			
-			double motorOutput = (SwerveDrive.drivingMotorFrontLeft.getOutputVoltage() * 100) / 12;
-			SwerveDrive.drivingMotorFrontRight.set(motorOutput);
+			double motorOutput = SwerveDrive.drivingMotorFrontLeft.getOutputVoltage() / 12;
+			
+			
+			SwerveDrive.drivingMotorFrontRight.set(-motorOutput);
+			SwerveDrive.drivingMotorBackRight.set(motorOutput);
 			SwerveDrive.drivingMotorBackLeft.set(motorOutput);
 		}
 		
@@ -105,16 +107,13 @@ public class MoveToY extends Command
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() 
     {
-    	if (SwerveDrive.drivingMotorFrontLeft.getEncPosition() < curDrivFLPosition + drivingDistance + 4 
-        		&& SwerveDrive.drivingMotorFrontLeft.getEncPosition() > curDrivFLPosition + drivingDistance - 4) 
+    	if (SwerveDrive.drivingMotorFrontLeft.getEncPosition() > curDrivFLPosition + drivingDistance - 4) 
     	{
-        	if (SwerveDrive.drivingMotorBackRight.getEncPosition() < curDrivBRPosition + drivingDistance + 4
-        			&& SwerveDrive.drivingMotorBackRight.getEncPosition() > curDrivBRPosition + drivingDistance -4) 
-		{
-        		return true;
-        	}
+        	SmartDashboard.putString("isFinished", "yes");
+        	return true;
         }
-        
+    	
+    	SmartDashboard.putString("isFinished", "no");
         return false;
         
     }
@@ -122,6 +121,7 @@ public class MoveToY extends Command
     // Called once after isFinished returns true
     protected void end() 
     {
+        SwerveDrive.drivingMotorFrontLeft.configPeakOutputVoltage(+12.0f, 0.0f);
     }
 
     // Called when another command which requires one or more of the same

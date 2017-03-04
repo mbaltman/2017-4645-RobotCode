@@ -20,7 +20,6 @@ public class MoveToX extends Command
 	public static double drivingDistance;
 	
 	public static double curDrivFLPosition;
-	public static double curDrivBRPosition;
 	
     public MoveToX(double distance) 
     {
@@ -39,7 +38,6 @@ public class MoveToX extends Command
     	drivingDistance = Math.abs(distance) * 1670.84;
     	
     	curDrivFLPosition = SwerveDrive.drivingMotorFrontLeft.getEncPosition();
-    	curDrivBRPosition = SwerveDrive.drivingMotorBackRight.getEncPosition();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -106,16 +104,12 @@ public class MoveToX extends Command
 			SwerveDrive.drivingMotorFrontLeft.changeControlMode(TalonControlMode.Position);
 			SwerveDrive.drivingMotorFrontLeft.set(curDrivFLPosition + drivingDistance);
 			
-			//SwerveDrive.drivingMotorBackRight.changeControlMode(TalonControlMode.Position);
-			//SwerveDrive.drivingMotorBackRight.set(curDrivBRPosition + drivingDistance);
-
-			
-			
 			double motorOutput = SwerveDrive.drivingMotorFrontLeft.getOutputVoltage() / 12.0;
 			SmartDashboard.putNumber("motorOutput", motorOutput);
+			
 			SwerveDrive.drivingMotorFrontRight.set(-motorOutput);
-			SwerveDrive.drivingMotorBackLeft.set(motorOutput);
 			SwerveDrive.drivingMotorBackRight.set(motorOutput);
+			SwerveDrive.drivingMotorBackLeft.set(motorOutput);
 		}
 		
 		
@@ -125,15 +119,10 @@ public class MoveToX extends Command
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() 
     {
-    	if (//SwerveDrive.drivingMotorFrontLeft.getEncPosition() < curDrivFLPosition + drivingDistance + 4
-        		 SwerveDrive.drivingMotorFrontLeft.getEncPosition() > curDrivFLPosition + drivingDistance - 4) 
+    	if (SwerveDrive.drivingMotorFrontLeft.getEncPosition() > curDrivFLPosition + drivingDistance - 4) 
     	{
-        	// (//SwerveDrive.drivingMotorBackRight.getEncPosition() < curDrivBRPosition + drivingDistance + 4
-        			// SwerveDrive.drivingMotorBackRight.getEncPosition() > curDrivBRPosition + drivingDistance -4)
-        	//{
-        		SmartDashboard.putString("isFinished", "yes");
-        		return true;
-        	//}
+        	SmartDashboard.putString("isFinished", "yes");
+        	return true;
         }
         
     	SmartDashboard.putString("isFinished", "no");
