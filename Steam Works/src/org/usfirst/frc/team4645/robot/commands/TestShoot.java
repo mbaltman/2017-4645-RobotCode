@@ -26,7 +26,7 @@ public class TestShoot extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() 
     {
-    	Robot.shooterSubsystem.shoot(82500);
+    	Robot.shooterSubsystem.shoot(75000);
     	//Robot.reservoirSubsystem.spinIn();
     }
 

@@ -111,8 +111,8 @@ public class Robot extends IterativeRobot
 		SwerveDrive.steeringMotorFrontRight.setFeedbackDevice(FeedbackDevice.AnalogEncoder);
         SwerveDrive.steeringMotorFrontRight.configNominalOutputVoltage(+0.0f, -0.0f);
         SwerveDrive.steeringMotorFrontRight.configPeakOutputVoltage(+12.0f, -12.0f);
-        SwerveDrive.steeringMotorFrontRight.setP(25);
-        SwerveDrive.steeringMotorFrontRight.setD(250);
+        SwerveDrive.steeringMotorFrontRight.setP(15);
+        SwerveDrive.steeringMotorFrontRight.setD(150);
         SwerveDrive.steeringMotorFrontRight.setAllowableClosedLoopErr(2);
         
         SwerveDrive.steeringMotorFrontLeft.setFeedbackDevice(FeedbackDevice.AnalogEncoder);
@@ -162,9 +162,9 @@ public class Robot extends IterativeRobot
         Shooter.shooterMotor.configNominalOutputVoltage(+0.0f, -0.0f);
         Shooter.shooterMotor.configPeakOutputVoltage(12.0f, 0.0f);
         Shooter.shooterMotor.setF(0.0086); //1.557
-        Shooter.shooterMotor.setP(0.018); //4.096
+        Shooter.shooterMotor.setP(0.03); //4.096
        // Shooter.shooterMotor.setI(0); 
-        Shooter.shooterMotor.setD(0.18); //81.84
+        Shooter.shooterMotor.setD(0.3); //81.84
 		
 	}
 

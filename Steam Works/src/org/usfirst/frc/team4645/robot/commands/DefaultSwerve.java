@@ -181,7 +181,7 @@ public class DefaultSwerve extends Command
 			SwerveDrive.drivingMotorBackLeft.set(0);
 		}
 		
-		
+		SmartDashboard.putString("swerve status", "execute");
     	
     }
 
@@ -194,6 +194,7 @@ public class DefaultSwerve extends Command
     // Called once after isFinished returns true
     protected void end()
     {
+    	SmartDashboard.putString("swerve status", "end");
     }
 
     // Called when another command which requires one or more of the same
@@ -204,6 +205,7 @@ public class DefaultSwerve extends Command
     	SwerveDrive.drivingMotorFrontLeft.set(0);
     	SwerveDrive.drivingMotorBackRight.set(0);
     	SwerveDrive.drivingMotorBackLeft.set(0);
+    	SmartDashboard.putString("swerve status", "interrupted");
     	
     }
     

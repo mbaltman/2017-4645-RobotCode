@@ -24,14 +24,11 @@ public class OI
 	//Button testMoveToY = new JoystickButton(leftJoy, 5);
 	Button buttonGear= new JoystickButton(leftJoy,6);
 	Button buttonIntake = new JoystickButton(leftJoy, 5);
-	Button buttonClimb = new JoystickButton(leftJoy, 7);
+	Button buttonClimb = new JoystickButton(leftJoy, 8);
 	Button spinIn = new JoystickButton(leftJoy,10);
 	Button spinOut = new JoystickButton(leftJoy,11);
 	
-	
-	
-	
-	public static Button resetGyro = new JoystickButton(leftJoy, 7);
+	 Button resetGyro = new JoystickButton(leftJoy, 7);
 	
 	public OI()
 	{

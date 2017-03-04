@@ -3,6 +3,7 @@ package org.usfirst.frc.team4645.robot.commands;
 import org.usfirst.frc.team4645.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.*;
 
 /**
  *
@@ -20,7 +21,7 @@ public class ClimbCommand extends Command
     // Called just before this Command runs the first time
     protected void initialize() 
     {
-    	Robot.climberSubsystem.stopClimb();
+    	//Robot.climberSubsystem.stopClimb();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -39,6 +40,9 @@ public class ClimbCommand extends Command
     protected void end() 
     {
     	Robot.climberSubsystem.stopClimb();
+    	SmartDashboard.putString("climber end", "yes");
+    	//isFinished();
+    	
     }
 
     // Called when another command which requires one or more of the same
