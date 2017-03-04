@@ -14,14 +14,20 @@ public class OI
 {
 	
 	public static Joystick leftJoy = new Joystick(1);
+	
+	
 	Button buttonShoot = new JoystickButton(leftJoy, 1);
 	
-	Button testShoot = new JoystickButton(leftJoy,3);
-	Button testFeeder = new JoystickButton(leftJoy, 11);
-	Button testGear = new JoystickButton(leftJoy, 10);
+	//Button testMakeParallel = new JoystickButton(leftJoy,3);
+	Button testMoveToX = new JoystickButton(leftJoy, 4);
 	
-	Button buttonIntake = new JoystickButton(leftJoy, 4);
-	Button buttonClimb = new JoystickButton(leftJoy, 5);
+	//Button testMoveToY = new JoystickButton(leftJoy, 5);
+	Button buttonGear= new JoystickButton(leftJoy,6);
+	Button buttonIntake = new JoystickButton(leftJoy, 5);
+	Button buttonClimb = new JoystickButton(leftJoy, 7);
+	Button spinIn = new JoystickButton(leftJoy,10);
+	Button spinOut = new JoystickButton(leftJoy,11);
+	
 	
 	
 	
@@ -37,16 +43,18 @@ public class OI
 	    //buttonMiddleGear.whenPressed(new PlaceGearCommand(0,1));
 		//buttonRightGear.whenPressed(new PlaceGearCommand(-1,1));
 		
-		//buttonShoot.whenPressed(new CenterAndShootCommand());
-		buttonIntake.whileHeld(new IntakeCommand());
-		buttonIntake.whenReleased(new StopIntake());
+		buttonShoot.whileHeld(new ReservoirAlternate());
 		
+		
+		//buttonIntake.whileHeld(new IntakeCommand());
 		buttonClimb.whileHeld(new ClimbCommand());
-		buttonClimb.whenReleased(new ClimbStop());
+		//testMakeParallel.whenPressed(new MakeParallel(45));
+		testMoveToX.whenPressed(new MoveToX(-1));
+		buttonIntake.whileHeld(new IntakeCommand());
+		buttonGear.whenPressed(new TestGear());
 		
-		testShoot.whileHeld(new TestShoot());
-		testShoot.whenReleased(new TestStopShooter());
-		testGear.whenPressed(new TestGear());
+		
+		//testMoveToY.whenPressed(new MoveToY(1));
 		
 		
 	
