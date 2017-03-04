@@ -41,7 +41,7 @@ public class PlaceGearCommand extends CommandGroup
         
     	//updates vision values and moves in Y, pushes gear
     	distanceInformation=(Robot.visionSubsystem.returnGearInformation());
-     	addSequential(new MoveToY(RobotMap.GEAR_DISTANCEY+distanceInformation[1]));
+     	addSequential(new MoveToY(RobotMap.GEAR_DISTANCE+distanceInformation[1]));
      
      	addSequential(new PushGearCommand());
      	
