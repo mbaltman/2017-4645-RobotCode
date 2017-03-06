@@ -142,8 +142,11 @@ public class Autonomous extends CommandGroup
     	}
     	
     	//face boiler, center and shoot
-    	addSequential(new MakeParallel(boilerAngle));
-    	addSequential(new CenterAndShootCommand());
+    	if (redBoiler || blueBoiler)
+    	{
+    		addSequential(new MakeParallel(boilerAngle));
+    		addSequential(new CenterAndShootCommand());
+    	}
     	
     }
 }
