@@ -31,7 +31,7 @@ public class MakeParallel extends Command
     	this.desAngle = desAngle * (Math.PI / 180);
     	
     	curPositionFL = SwerveDrive.drivingMotorFrontLeft.getEncPosition();
-    	curPositionBR = SwerveDrive.drivingMotorBackRight.getEncPosition();
+    	//curPositionBR = SwerveDrive.drivingMotorBackRight.getEncPosition();
     	
     }
 
@@ -128,8 +128,8 @@ public class MakeParallel extends Command
 		{
 			SwerveDrive.drivingMotorFrontLeft.changeControlMode(TalonControlMode.Position);
 			SwerveDrive.drivingMotorFrontLeft.set(curPositionFL + drivingDistance);
-			SwerveDrive.drivingMotorBackRight.changeControlMode(TalonControlMode.Position);
-			SwerveDrive.drivingMotorBackRight.set(curPositionBR + drivingDistance);
+			//SwerveDrive.drivingMotorBackRight.changeControlMode(TalonControlMode.Position);
+			//SwerveDrive.drivingMotorBackRight.set(curPositionBR + drivingDistance);
 			
 			double motorOutput = (SwerveDrive.drivingMotorFrontLeft.getOutputVoltage() * 100) / 12;
 			SwerveDrive.drivingMotorFrontRight.set(motorOutput);
@@ -144,15 +144,15 @@ public class MakeParallel extends Command
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() 
     {
-        if (SwerveDrive.drivingMotorFrontLeft.getEncPosition() < curPositionFL + drivingDistance + 4 
-        		&& SwerveDrive.drivingMotorFrontLeft.getEncPosition() > curPositionFL + drivingDistance - 4)
-			{
-        	if (SwerveDrive.drivingMotorBackRight.getEncPosition() < curPositionBR + drivingDistance + 4
-        			&& SwerveDrive.drivingMotorBackRight.getEncPosition() > curPositionBR + drivingDistance -4)
-				{
-        		return true;
-        	}
-        }
+       // if (SwerveDrive.drivingMotorFrontLeft.getEncPosition() < curPositionFL + drivingDistance + 4 
+        		//&& SwerveDrive.drivingMotorFrontLeft.getEncPosition() > curPositionFL + drivingDistance - 4)
+			//{
+        	//if (SwerveDrive.drivingMotorBackRight.getEncPosition() < curPositionBR + drivingDistance + 4
+        		//	&& SwerveDrive.drivingMotorBackRight.getEncPosition() > curPositionBR + drivingDistance -4)
+				//{
+        		//return true;
+        	//}
+       // }
         
         return false;
         

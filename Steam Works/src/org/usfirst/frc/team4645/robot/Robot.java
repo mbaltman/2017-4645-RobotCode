@@ -144,13 +144,13 @@ public class Robot extends IterativeRobot
         SwerveDrive.drivingMotorFrontLeft.setD(100);
         
         //SwerveDrive.drivingMotorFrontLeft.enableBrakeMode(true);
-        
+        /*
         SwerveDrive.drivingMotorBackRight.setFeedbackDevice(FeedbackDevice.QuadEncoder);
         SwerveDrive.drivingMotorBackRight.configNominalOutputVoltage(+0.0f, -0.0f);
         SwerveDrive.drivingMotorBackRight.configPeakOutputVoltage(+12.0f, 0f);
         SwerveDrive.drivingMotorBackRight.setP(0);
         SwerveDrive.drivingMotorBackRight.setD(0);
-        
+        */
         SwerveDrive.gyro.calibrate();
         
         Shooter.shooterMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);

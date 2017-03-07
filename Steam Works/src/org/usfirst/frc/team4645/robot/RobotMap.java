@@ -30,10 +30,10 @@ public class RobotMap
 	//SRX IDs
 	public static final int steerFR = 0;
 	public static final int steerFL = 1;
-	public static final int steerBR = 2;
+	public static final int steerBR = 5;
 	public static final int steerBL = 3;
 	public static final int driveFL = 4;
-	public static final int driveBR = 5;
+	public static final int driveBR = 5; //now an sr
 	public static final int shooterMotor = 6;
 	
 	
