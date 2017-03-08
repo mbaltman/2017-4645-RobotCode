@@ -21,7 +21,7 @@ public class ClimbCommand extends Command
     // Called just before this Command runs the first time
     protected void initialize() 
     {
-    	//Robot.climberSubsystem.stopClimb();
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -41,7 +41,7 @@ public class ClimbCommand extends Command
     {
     	Robot.climberSubsystem.stopClimb();
     	SmartDashboard.putString("climber end", "yes");
-    	//isFinished();
+    	
     	
     }
 

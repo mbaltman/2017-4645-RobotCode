@@ -32,10 +32,10 @@ public class RobotMap
 	public static final int steerFR = 0;
 	public static final int steerFL = 1;
 	public static final int steerBR = 5;
-	public static final int steerBL = 3;
+	public static final int steerBL = 2;
 	public static final int driveFL = 4;
 	
-	public static final int reservoirMotorPort = 2;
+	public static final int reservoirMotorPort = 3;
 	public static final int shooterMotor = 6;
 	
 	

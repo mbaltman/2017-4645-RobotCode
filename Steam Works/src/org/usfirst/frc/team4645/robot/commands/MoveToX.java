@@ -18,15 +18,17 @@ public class MoveToX extends Command
 
 	double distance;
 	public static double drivingDistance;
+	
 	public static double curDrivFLPosition;
-	public static boolean finished;
-	boolean isOrigPosDone;
 	
     public MoveToX(double distance) 
     {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.swerveDrive);
         this.distance = distance;
+        
+        
+        
     }
 
     // Called just before this Command runs the first time
@@ -34,14 +36,15 @@ public class MoveToX extends Command
     {
     	//set distance to position
     	drivingDistance = Math.abs(distance) * 1670.84;
+    	
     	curDrivFLPosition = SwerveDrive.drivingMotorFrontLeft.getEncPosition();
-    	finished = false;
-    	isOrigPosDone = false;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() 
     {
+    	
+    	
     	
     	//get wheel positions
     	double curFRPosition = Robot.swerveDrive.getPosition(SwerveDrive.steeringMotorFrontRight);
@@ -71,15 +74,11 @@ public class MoveToX extends Command
     	double positionDifBR = Robot.swerveDrive.getPositionDif(newXMagBR, newYMagBR);
     	double positionDifBL = Robot.swerveDrive.getPositionDif(newXMagBL, newYMagBL);
     	
-    	if (!isOrigPosDone)
-    	{
-    		//set steering motor position
-    		Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorFrontRight, curFRPosition, positionDifFR, RobotMap.FRONTRIGHT_ERROR);
-    		Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorFrontLeft, curFLPosition, positionDifFL, RobotMap.FRONTLEFT_ERROR);
-    		Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorBackRight, curBRPosition, positionDifBR, RobotMap.BACKRIGHT_ERROR);
-    		Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorBackLeft, curBLPosition, positionDifBL, RobotMap.BACKLEFT_ERROR);
-    	}
-		
+    	//set steering motor position
+    	Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorFrontRight, curFRPosition, positionDifFR, RobotMap.FRONTRIGHT_ERROR);
+		Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorFrontLeft, curFLPosition, positionDifFL, RobotMap.FRONTLEFT_ERROR);
+		Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorBackRight, curBRPosition, positionDifBR, RobotMap.BACKRIGHT_ERROR);
+		Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorBackLeft, curBLPosition, positionDifBL, RobotMap.BACKLEFT_ERROR);
 		
 		//set driving motor output
 		boolean finalFR = positionDifFR + RobotMap.FRONTRIGHT_ERROR > -3 && positionDifFR + RobotMap.FRONTRIGHT_ERROR < 3;
@@ -101,9 +100,7 @@ public class MoveToX extends Command
 		
 		if (finalFR && finalFL && finalBR && finalBL) 
 		{
-			isOrigPosDone = true;
-			
-	        SwerveDrive.drivingMotorFrontLeft.configPeakOutputVoltage(+4.5f, 0.0f);
+	        SwerveDrive.drivingMotorFrontLeft.configPeakOutputVoltage(+2.0f, 0.0f);
 			SwerveDrive.drivingMotorFrontLeft.changeControlMode(TalonControlMode.Position);
 			SwerveDrive.drivingMotorFrontLeft.set(curDrivFLPosition + drivingDistance);
 			
@@ -113,58 +110,29 @@ public class MoveToX extends Command
 			SwerveDrive.drivingMotorFrontRight.set(-motorOutput);
 			SwerveDrive.drivingMotorBackRight.set(motorOutput);
 			SwerveDrive.drivingMotorBackLeft.set(motorOutput);
-			
-			if (SwerveDrive.drivingMotorFrontLeft.getEncPosition() > curDrivFLPosition + drivingDistance - 4) 
-	    	{
-				newXMagFR = Robot.swerveDrive.calcRelMagX(-.669 * distance, .743 * distance, curFRAngle);
-				newYMagFR = Robot.swerveDrive.calcRelMagY(.743 * distance, -.669 * distance, curFRAngle);
-				newXMagFL = Robot.swerveDrive.calcRelMagX(-.669 * distance, -.743 * distance, curFLAngle);
-				newYMagFL = Robot.swerveDrive.calcRelMagY(-.743 * distance, -.669 * distance, curFLAngle);
-				newXMagBR = Robot.swerveDrive.calcRelMagX(-.669 * distance, -.743 * distance, curBRAngle);
-				newYMagBR = Robot.swerveDrive.calcRelMagY(-.743 * distance, -.669 * distance, curBRAngle);
-				newXMagBL = Robot.swerveDrive.calcRelMagX(-.669 * distance, .743 * distance, curBLAngle);
-				newYMagBL = Robot.swerveDrive.calcRelMagY(.743 * distance, -.669 * distance, curBLAngle);
-				
-				positionDifFR = Robot.swerveDrive.getPositionDif(newXMagFR, newYMagFR);
-		    	positionDifFL = Robot.swerveDrive.getPositionDif(newXMagFL, newYMagFL);
-		    	positionDifBR = Robot.swerveDrive.getPositionDif(newXMagBR, newYMagBR);
-		    	positionDifBL = Robot.swerveDrive.getPositionDif(newXMagBL, newYMagBL);
-				
-				Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorFrontRight, curFRPosition, positionDifFR, RobotMap.FRONTRIGHT_ERROR);
-				Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorFrontLeft, curFLPosition, positionDifFL, RobotMap.FRONTLEFT_ERROR);
-				Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorBackRight, curBRPosition, positionDifBR, RobotMap.BACKRIGHT_ERROR);
-				Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorBackLeft, curBLPosition, positionDifBL, RobotMap.BACKLEFT_ERROR);
-	        	
-				finished = true;
-	        }
 		}
 		
 		
-		
-		
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() 
     {
-    	if (finished)
+    	if (SwerveDrive.drivingMotorFrontLeft.getEncPosition() > curDrivFLPosition + drivingDistance - 4) 
     	{
-	        SwerveDrive.drivingMotorFrontLeft.configPeakOutputVoltage(+12f, 0.0f);
-    		return true;
-    	}
-    	return false;
+        	SmartDashboard.putString("isFinished", "yes");
+        	return true;
+        }
+        
+    	SmartDashboard.putString("isFinished", "no");
+        return false;
     }
 
     // Called once after isFinished returns true
     protected void end() 
     {
         SwerveDrive.drivingMotorFrontLeft.configPeakOutputVoltage(+12.0f, 0.0f);
-        
-        
-        
-        
-        
-        
     }
 
     // Called when another command which requires one or more of the same

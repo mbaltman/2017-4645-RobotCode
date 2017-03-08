@@ -15,35 +15,56 @@ public class OI
 	
 	public static Joystick joy = new Joystick(1);
 	
-	 Button button1= new JoystickButton(joy, 1);
-	 Button button2= new JoystickButton(joy, 2);
-	 Button button3= new JoystickButton(joy, 3);
-	 Button button4= new JoystickButton(joy, 4);
-	 Button button5= new JoystickButton(joy, 5);
+	 Button button1_1= new JoystickButton(joy, 1);
+	 Button button1_2= new JoystickButton(joy, 2);
+	 Button button1_3= new JoystickButton(joy, 3);
+	 Button button1_4= new JoystickButton(joy, 4);
+	 Button button1_5= new JoystickButton(joy, 5);
 	 
-	 Button button6= new JoystickButton(joy, 6);
-	 Button button7= new JoystickButton(joy, 7);
-	 Button button8= new JoystickButton(joy, 8);
-	 Button button9= new JoystickButton(joy, 9);
-	 Button button10= new JoystickButton(joy, 10);
+	 Button button1_6= new JoystickButton(joy, 6);
+	 Button button1_7= new JoystickButton(joy, 7);
+	 Button button1_8= new JoystickButton(joy, 8);
+	 Button button1_9= new JoystickButton(joy, 9);
+	 Button button1_10= new JoystickButton(joy, 10);
 	 
-	 Button button11= new JoystickButton(joy, 11);
-	 Button button12= new JoystickButton(joy, 12);
+	 Button button1_11= new JoystickButton(joy, 11);
+	 Button button1_12= new JoystickButton(joy, 12);
+	 
+	 public static Joystick joy2 = new Joystick(2);
+		
+	 Button button2_1= new JoystickButton(joy, 1);
+	 Button button2_2= new JoystickButton(joy, 2);
+     Button button2_3= new JoystickButton(joy, 3);
+	 Button button2_4= new JoystickButton(joy, 4);
+	 Button button2_5= new JoystickButton(joy, 5);
+	 
+	 Button button2_6= new JoystickButton(joy, 6);
+	 Button button2_7= new JoystickButton(joy, 7);
+	 Button button2_8= new JoystickButton(joy, 8);
+	 Button button2_9= new JoystickButton(joy, 9);
+	 Button button2_10= new JoystickButton(joy, 10);
+	 
+	 Button button2_11= new JoystickButton(joy, 11);
+	 Button button2_12= new JoystickButton(joy, 12);
+	 
 	 
 	
 	public OI()
 	{
 		
-		button1.whileHeld(new TestShoot());
-		button2.whileHeld(new IntakeCommand());
+		button1_1.whileHeld(new IntakeCommand());
+		
+		button1_2.whileHeld(new TestShoot());
+		button1_2.whileHeld(new ReservoirCommand());
 		
 		
-		button3.whileHeld(new ClimbCommand());
+		button1_3.whileHeld(new ClimbCommand());
 		
 		
-		button7.whenPressed(new HoldGearCommand());
-		button8.whenPressed(new DropGearCommand());
-		button9.whileHeld(new PushGearCommand());
+		
+		button2_7.whenPressed(new DropGearCommand());
+		button2_9.whenPressed(new PushGearCommand());
+		button2_9.whenReleased(new HoldGearCommand());
 	
 	}
 

@@ -4,8 +4,7 @@ import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;
 import org.usfirst.frc.team4645.robot.subsystems.*;
 import org.usfirst.frc.team4645.robot.RobotMap;
-
-
+import org.usfirst.frc.team4645.robot.commands.PrintVision;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
@@ -100,7 +99,7 @@ public class Vision extends Subsystem {
 		    );
 		    visionThreadGear.start();
 		    
-		    
+		    setDefaultCommand(new PrintVision());
 	}
 	    
     
@@ -134,6 +133,7 @@ public class Vision extends Subsystem {
     	return coordinate;
 	
 	}
+    
     public double[] returnGearInformation()
    	{
        	

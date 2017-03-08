@@ -27,6 +27,7 @@ public class Intake extends Subsystem
     public void intakeIn()
     {
     	intakeMotor.set(-.65);
+    	//75 percent for auto
     	
     }
     public void intakeStop()

@@ -23,11 +23,11 @@ public class Reservoir extends Subsystem
     {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-    	setDefaultCommand( new ReservoirCommand());
+    	
     }
     public void spinReservoir()
     {
-    	reservoirMotor.set(1);
+    	reservoirMotor.set(-1);
     }
     
     public void stopReservoir()
