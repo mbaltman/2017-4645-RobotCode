@@ -17,9 +17,11 @@ public class MakeParallel extends Command
 {
 	
 	double desAngle;
-	double curPositionFL;
-	double curPositionBR;
+	double curDrivFLPosition;
 	double drivingDistance;
+	boolean finished;
+	boolean isOrigPosDone;
+
 
     public MakeParallel(double desAngle) 
     {
@@ -30,14 +32,15 @@ public class MakeParallel extends Command
     	requires(Robot.swerveDrive);
     	this.desAngle = desAngle * (Math.PI / 180);
     	
-    	curPositionFL = SwerveDrive.drivingMotorFrontLeft.getEncPosition();
-    	//curPositionBR = SwerveDrive.drivingMotorBackRight.getEncPosition();
     	
     }
 
     // Called just before this Command runs the first time
     protected void initialize()
     {
+    	curDrivFLPosition = SwerveDrive.drivingMotorFrontLeft.getEncPosition();
+    	isOrigPosDone = false;
+    	finished = false;
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -111,29 +114,61 @@ public class MakeParallel extends Command
 		double positionDifBR = Robot.swerveDrive.getPositionDif(newXMagBR, newYMagBR);
 		double positionDifBL = Robot.swerveDrive.getPositionDif(newXMagBL, newYMagBL);
 		
-		//set steering motor position
-		Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorFrontRight, curFRPosition, positionDifFR, RobotMap.FRONTRIGHT_ERROR);
-		Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorFrontLeft, curFLPosition, positionDifFL, RobotMap.FRONTLEFT_ERROR);
-		Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorBackRight, curBRPosition, positionDifBR, RobotMap.BACKRIGHT_ERROR);
-		Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorBackLeft, curBLPosition, positionDifBL, RobotMap.BACKLEFT_ERROR);
+		if (!isOrigPosDone)
+		{
+			//set steering motor position
+			Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorFrontRight, curFRPosition, positionDifFR, RobotMap.FRONTRIGHT_ERROR);
+			Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorFrontLeft, curFLPosition, positionDifFL, RobotMap.FRONTLEFT_ERROR);
+			Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorBackRight, curBRPosition, positionDifBR, RobotMap.BACKRIGHT_ERROR);
+			Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorBackLeft, curBLPosition, positionDifBL, RobotMap.BACKLEFT_ERROR);
+		}
 		
 		//set driving motor output
 		
-		boolean finalFR = positionDifFR + RobotMap.FRONTRIGHT_ERROR > -5 && positionDifFR + RobotMap.FRONTRIGHT_ERROR < 5;
-		boolean finalFL = positionDifFL + RobotMap.FRONTLEFT_ERROR > -5 && positionDifFL + RobotMap.FRONTLEFT_ERROR < 5;
-		boolean finalBR = positionDifBR + RobotMap.BACKRIGHT_ERROR > -5 && positionDifBR + RobotMap.BACKRIGHT_ERROR < 5;
-		boolean finalBL = positionDifBL + RobotMap.BACKLEFT_ERROR > -5 && positionDifBL + RobotMap.BACKLEFT_ERROR < 5;
+		boolean finalFR = positionDifFR + RobotMap.FRONTRIGHT_ERROR > -3 && positionDifFR + RobotMap.FRONTRIGHT_ERROR < 3;
+		boolean finalFL = positionDifFL + RobotMap.FRONTLEFT_ERROR > -3 && positionDifFL + RobotMap.FRONTLEFT_ERROR < 3;
+		boolean finalBR = positionDifBR + RobotMap.BACKRIGHT_ERROR > -3 && positionDifBR + RobotMap.BACKRIGHT_ERROR < 3;
+		boolean finalBL = positionDifBL + RobotMap.BACKLEFT_ERROR > -3 && positionDifBL + RobotMap.BACKLEFT_ERROR < 3;
 		
 		if (finalFR && finalFL && finalBR && finalBL) 
 		{
-			SwerveDrive.drivingMotorFrontLeft.changeControlMode(TalonControlMode.Position);
-			SwerveDrive.drivingMotorFrontLeft.set(curPositionFL + drivingDistance);
-			//SwerveDrive.drivingMotorBackRight.changeControlMode(TalonControlMode.Position);
-			//SwerveDrive.drivingMotorBackRight.set(curPositionBR + drivingDistance);
+			isOrigPosDone = true;
 			
-			double motorOutput = (SwerveDrive.drivingMotorFrontLeft.getOutputVoltage() * 100) / 12;
-			SwerveDrive.drivingMotorFrontRight.set(motorOutput);
+	        SwerveDrive.drivingMotorFrontLeft.configPeakOutputVoltage(+4.5f, 0.0f);
+			SwerveDrive.drivingMotorFrontLeft.changeControlMode(TalonControlMode.Position);
+			SwerveDrive.drivingMotorFrontLeft.set(curDrivFLPosition + drivingDistance);
+			
+			
+			double motorOutput = SwerveDrive.drivingMotorFrontLeft.getOutputVoltage() / 12;
+			
+			SwerveDrive.drivingMotorFrontRight.set(-motorOutput);
+			SwerveDrive.drivingMotorBackRight.set(motorOutput);
 			SwerveDrive.drivingMotorBackLeft.set(motorOutput);
+			
+			if (SwerveDrive.drivingMotorFrontLeft.getEncPosition() > curDrivFLPosition + drivingDistance - 4) 
+	    	{
+				newXMagFR = Robot.swerveDrive.calcRelMagX(-1 * angDif, 0, curFRAngle);
+				newYMagFR = Robot.swerveDrive.calcRelMagY(0, -1 * angDif, curFRAngle);
+				newXMagFL = Robot.swerveDrive.calcRelMagX(0, 1 * angDif, curFLAngle);
+				newYMagFL = Robot.swerveDrive.calcRelMagY(1 * angDif, 0, curFLAngle);
+				newXMagBR = Robot.swerveDrive.calcRelMagX(0, -1 * angDif, curBRAngle);
+				newYMagBR = Robot.swerveDrive.calcRelMagY(-1 * angDif, 0, curBRAngle);
+				newXMagBL = Robot.swerveDrive.calcRelMagX(1 * angDif, 0, curBLAngle);
+				newYMagBL = Robot.swerveDrive.calcRelMagY(0, 1 * angDif, curBLAngle);
+				
+				positionDifFR = Robot.swerveDrive.getPositionDif(newXMagFR, newYMagFR);
+		    	positionDifFL = Robot.swerveDrive.getPositionDif(newXMagFL, newYMagFL);
+		    	positionDifBR = Robot.swerveDrive.getPositionDif(newXMagBR, newYMagBR);
+		    	positionDifBL = Robot.swerveDrive.getPositionDif(newXMagBL, newYMagBL);
+				
+				Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorFrontRight, curFRPosition, positionDifFR, RobotMap.FRONTRIGHT_ERROR);
+				Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorFrontLeft, curFLPosition, positionDifFL, RobotMap.FRONTLEFT_ERROR);
+				Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorBackRight, curBRPosition, positionDifBR, RobotMap.BACKRIGHT_ERROR);
+				Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorBackLeft, curBLPosition, positionDifBL, RobotMap.BACKLEFT_ERROR);
+	        	
+				finished = true;
+	        }
+			
 			
 		}
     	
@@ -144,18 +179,12 @@ public class MakeParallel extends Command
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() 
     {
-        //if (SwerveDrive.drivingMotorFrontLeft.getEncPosition() < curPositionFL + drivingDistance + 4 
-        	//	&& SwerveDrive.drivingMotorFrontLeft.getEncPosition() > curPositionFL + drivingDistance - 4)
-			//{
-        	//if (SwerveDrive.drivingMotorBackRight.getEncPosition() < curPositionBR + drivingDistance + 4
-        		//	&& SwerveDrive.drivingMotorBackRight.getEncPosition() > curPositionBR + drivingDistance -4)
-				//{
-        		//return true;
-        	//}
-       // }
-        
-        return false;
-        
+    	if (finished)
+    	{
+	        SwerveDrive.drivingMotorFrontLeft.configPeakOutputVoltage(+12f, 0.0f);
+    		return true;
+    	}
+    	return false;
     }
 
     // Called once after isFinished returns true
