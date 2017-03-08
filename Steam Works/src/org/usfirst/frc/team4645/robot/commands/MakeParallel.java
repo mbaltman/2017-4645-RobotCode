@@ -144,8 +144,8 @@ public class MakeParallel extends Command
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() 
     {
-       // if (SwerveDrive.drivingMotorFrontLeft.getEncPosition() < curPositionFL + drivingDistance + 4 
-        		//&& SwerveDrive.drivingMotorFrontLeft.getEncPosition() > curPositionFL + drivingDistance - 4)
+        //if (SwerveDrive.drivingMotorFrontLeft.getEncPosition() < curPositionFL + drivingDistance + 4 
+        	//	&& SwerveDrive.drivingMotorFrontLeft.getEncPosition() > curPositionFL + drivingDistance - 4)
 			//{
         	//if (SwerveDrive.drivingMotorBackRight.getEncPosition() < curPositionBR + drivingDistance + 4
         		//	&& SwerveDrive.drivingMotorBackRight.getEncPosition() > curPositionBR + drivingDistance -4)

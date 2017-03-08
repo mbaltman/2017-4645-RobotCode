@@ -20,12 +20,13 @@ public class RobotMap
 	public static final int hangerMotorT =3;
 	public static final int feederMotor = 6;
 	public static final int driveBL = 4; 
+	public static final int driveBR = 5; //now an sr
 	public static final int intakeMotor = 7;
 	//servos
-	public static final int reservoirServo = 0;
-	public static final int gearServoDrop = 2;
-	public static final int gearServoPush = 1; //9
-	//5
+	
+	public static final int gearServoLeft = 2;
+	public static final int gearServoRight = 1; //9
+	//0 PWM is open
 	
 	//SRX IDs
 	public static final int steerFR = 0;
@@ -33,7 +34,8 @@ public class RobotMap
 	public static final int steerBR = 5;
 	public static final int steerBL = 3;
 	public static final int driveFL = 4;
-	public static final int driveBR = 5; //now an sr
+	
+	public static final int reservoirMotorPort = 2;
 	public static final int shooterMotor = 6;
 	
 	

@@ -35,9 +35,9 @@ public class DefaultSwerve extends Command
     protected void execute() 
     {
     	//get joystick mags
-	double tempXMag = -OI.leftJoy.getX();
-	double tempYMag = OI.leftJoy.getY();
-	double tempZMag = Robot.swerveDrive.getZMag(OI.leftJoy.getZ());
+	double tempXMag = -OI.joy.getX();
+	double tempYMag = OI.joy.getY();
+	double tempZMag = Robot.swerveDrive.getZMag(OI.joy.getZ());
 	
 	SmartDashboard.putNumber("tempXMag", tempXMag);
 	SmartDashboard.putNumber("tempYMag", tempYMag);

@@ -36,10 +36,10 @@ public class TestGear extends CommandGroup {
     	
   
     	 
-    	addSequential(new ResetPushGearCommand(),1);
+    	//addSequential(new ResetPushGearCommand(),1);
    
     	
-        addSequential(new ResetDropGearCommand(),1);
+       // addSequential(new ResetDropGearCommand(),1);
 
       
     	

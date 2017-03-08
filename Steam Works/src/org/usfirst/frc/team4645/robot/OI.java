@@ -13,47 +13,37 @@ import org.usfirst.frc.team4645.robot.commands.*;
 public class OI 
 {
 	
-	public static Joystick leftJoy = new Joystick(1);
+	public static Joystick joy = new Joystick(1);
 	
-	
-	Button buttonShoot = new JoystickButton(leftJoy, 1);
-	
-	//Button testMakeParallel = new JoystickButton(leftJoy,3);
-	//Button testMoveToX = new JoystickButton(leftJoy, 4);
-	
-	//Button testMoveToY = new JoystickButton(leftJoy, 5);
-	Button buttonGear= new JoystickButton(leftJoy,6);
-	Button buttonIntake = new JoystickButton(leftJoy, 5);
-	Button buttonClimb = new JoystickButton(leftJoy, 8);
-	Button spinIn = new JoystickButton(leftJoy,10);
-	Button spinOut = new JoystickButton(leftJoy,11);
-	
-	 Button resetGyro = new JoystickButton(leftJoy, 7);
+	 Button button1= new JoystickButton(joy, 1);
+	 Button button2= new JoystickButton(joy, 2);
+	 Button button3= new JoystickButton(joy, 3);
+	 Button button4= new JoystickButton(joy, 4);
+	 Button button5= new JoystickButton(joy, 5);
+	 
+	 Button button6= new JoystickButton(joy, 6);
+	 Button button7= new JoystickButton(joy, 7);
+	 Button button8= new JoystickButton(joy, 8);
+	 Button button9= new JoystickButton(joy, 9);
+	 Button button10= new JoystickButton(joy, 10);
+	 
+	 Button button11= new JoystickButton(joy, 11);
+	 Button button12= new JoystickButton(joy, 12);
+	 
 	
 	public OI()
 	{
 		
-		resetGyro.whenPressed(new ResetGyro());
-
-		
-		//buttonLeftGear.whenPressed(new PlaceGearCommand(1,1));
-	    //buttonMiddleGear.whenPressed(new PlaceGearCommand(0,1));
-		//buttonRightGear.whenPressed(new PlaceGearCommand(-1,1));
-		
-		buttonShoot.whileHeld(new TestShoot());
+		button1.whileHeld(new TestShoot());
+		button2.whileHeld(new IntakeCommand());
 		
 		
-		//buttonIntake.whileHeld(new IntakeCommand());
-		buttonClimb.whileHeld(new ClimbCommand());
-		//testMakeParallel.whenPressed(new MakeParallel(45));
-		//testMoveToX.whenPressed(new MoveToX(-1));
-		buttonIntake.whileHeld(new IntakeCommand());
-		buttonGear.whenPressed(new TestGear());
+		button3.whileHeld(new ClimbCommand());
 		
 		
-		//testMoveToY.whenPressed(new MoveToY(1));
-		
-		
+		button7.whenPressed(new HoldGearCommand());
+		button8.whenPressed(new DropGearCommand());
+		button9.whileHeld(new PushGearCommand());
 	
 	}
 

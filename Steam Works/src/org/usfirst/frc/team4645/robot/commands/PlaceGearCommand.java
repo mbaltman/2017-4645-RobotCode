@@ -48,11 +48,11 @@ public class PlaceGearCommand extends CommandGroup
      	//backs up and resets gear servos
     	addSequential( new MoveToY(backUpDistance/2));
     	
-    	addSequential(new ResetPushGearCommand());
+    	//addSequential(new ResetPushGearCommand());
     	
     	addSequential( new MoveToY(backUpDistance/2));
     	
-    	addSequential(new ResetDropGearCommand());
+    	//addSequential(new ResetDropGearCommand());
     	
     	
     	
