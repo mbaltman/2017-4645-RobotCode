@@ -67,7 +67,8 @@ public class MoveToX extends Command
     	
     	if (!isOrigPosDone)
     	{
-    	
+    		SmartDashboard.putString("status", "!isOrigPosDone");
+    		
 	    	//calc relative magnitudes
 	    	double newXMagFR = Robot.swerveDrive.calcRelMagX(-Math.signum(distance), 0, curFRAngle);
 	   		double newYMagFR = Robot.swerveDrive.calcRelMagY(0, -Math.signum(distance), curFRAngle);
@@ -115,7 +116,12 @@ public class MoveToX extends Command
 		
 		if (finalFR && finalFL && finalBR && finalBL) 
 		{
+			SmartDashboard.putString("status", "final Pos done");
+			SmartDashboard.putNumber("curDrivingPosiiton", SwerveDrive.drivingMotorFrontLeft.getPosition());
+			
 			isOrigPosDone = true;
+			
+			
 			
 	        SwerveDrive.drivingMotorFrontLeft.configPeakOutputVoltage(+4.5f, 0.0f);
 			SwerveDrive.drivingMotorFrontLeft.changeControlMode(TalonControlMode.Position);
@@ -130,6 +136,8 @@ public class MoveToX extends Command
 			
 			if (SwerveDrive.drivingMotorFrontLeft.getEncPosition() > curDrivFLPosition + drivingDistance - 4) 
 	    	{
+				SmartDashboard.putString("status", "driving motor position done");
+				
 				double newXMagFR = Robot.swerveDrive.calcRelMagX(-.669 * distance, .743 * distance, curFRAngle);
 				double newYMagFR = Robot.swerveDrive.calcRelMagY(.743 * distance, -.669 * distance, curFRAngle);
 				double newXMagFL = Robot.swerveDrive.calcRelMagX(-.669 * distance, -.743 * distance, curFLAngle);
@@ -156,6 +164,7 @@ public class MoveToX extends Command
 				
 				if (endFR && endFL && endBR && endBL)
 				{
+					SmartDashboard.putString("status", "ended");
 					finished = true;	
 				}
 	        }
