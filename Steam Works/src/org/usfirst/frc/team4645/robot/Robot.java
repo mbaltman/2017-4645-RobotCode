@@ -2,6 +2,10 @@
 package org.usfirst.frc.team4645.robot;
 
 import edu.wpi.cscore.UsbCamera;
+
+import edu.wpi.first.wpilibj.hal.PDPJNI;
+
+
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.*;
@@ -39,6 +43,9 @@ public class Robot extends IterativeRobot
 	public static final Gears gearSubsystem = new Gears();
 	public static final Vision visionSubsystem = new Vision();
 	public static final Shooter shooterSubsystem = new Shooter();
+	
+	//public PDPJNI pdp= new PDPJNI();
+	
 	
 	public static OI oi;
 	//Command Groups
@@ -85,6 +92,7 @@ public class Robot extends IterativeRobot
 	public void robotInit() 
 	{
 		oi = new OI();
+		
 		
 		
 		
@@ -228,6 +236,7 @@ public class Robot extends IterativeRobot
 	@Override
 	public void teleopInit()
 	{
+		//pdp.clearPDPStickyFaults(0);
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove

@@ -30,22 +30,23 @@ public class OI
 	 Button button1_11= new JoystickButton(joy, 11);
 	 Button button1_12= new JoystickButton(joy, 12);
 	 
-	 public static Joystick joy2 = new Joystick(2);
+	
+	 public static Joystick joy1 = new Joystick(2);
 		
-	 Button button2_1= new JoystickButton(joy, 1);
-	 Button button2_2= new JoystickButton(joy, 2);
-     Button button2_3= new JoystickButton(joy, 3);
-	 Button button2_4= new JoystickButton(joy, 4);
-	 Button button2_5= new JoystickButton(joy, 5);
+	 Button button2_1= new JoystickButton(joy1, 1);
+	 Button button2_2= new JoystickButton(joy1, 2);
+     Button button2_3= new JoystickButton(joy1, 3);
+	 Button button2_4= new JoystickButton(joy1, 4);
+	 Button button2_5= new JoystickButton(joy1, 5);
 	 
-	 Button button2_6= new JoystickButton(joy, 6);
-	 Button button2_7= new JoystickButton(joy, 7);
-	 Button button2_8= new JoystickButton(joy, 8);
-	 Button button2_9= new JoystickButton(joy, 9);
-	 Button button2_10= new JoystickButton(joy, 10);
+	 Button button2_6= new JoystickButton(joy1, 6);
+	 Button button2_7= new JoystickButton(joy1, 7);
+	 Button button2_8= new JoystickButton(joy1, 8);
+	 Button button2_9= new JoystickButton(joy1, 9);
+	 Button button2_10= new JoystickButton(joy1, 10);
 	 
-	 Button button2_11= new JoystickButton(joy, 11);
-	 Button button2_12= new JoystickButton(joy, 12);
+	 Button button2_11= new JoystickButton(joy1, 11);
+	 Button button2_12= new JoystickButton(joy1, 12);
 	 
 	 
 	
@@ -55,7 +56,7 @@ public class OI
 		button1_1.whileHeld(new IntakeCommand());
 		
 		button1_2.whileHeld(new TestShoot());
-		button1_2.whileHeld(new ReservoirCommand());
+		button1_4.whileHeld(new ReservoirCommand());
 		
 		
 		button1_3.whileHeld(new ClimbCommand());
