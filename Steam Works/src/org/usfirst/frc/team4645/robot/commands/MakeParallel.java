@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4645.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team4645.robot.OI;
 import org.usfirst.frc.team4645.robot.Robot;
@@ -17,7 +18,7 @@ public class MakeParallel extends Command
 {
 	
 	double desAngle;
-	double curDrivFLPosition;
+	double curDrivBRPosition;
 	double angDif;
 	double drivingDistance;
 	boolean finished;
@@ -44,7 +45,9 @@ public class MakeParallel extends Command
     // Called just before this Command runs the first time
     protected void initialize()
     {
-    	curDrivFLPosition = SwerveDrive.drivingMotorFrontLeft.getEncPosition();
+    	SmartDashboard.putString("status", "initializing");
+    	
+    	curDrivBRPosition = SwerveDrive.drivingMotorBackRight.getEncPosition();
     	isOrigPosDone = false;
     	finished = false;
     	
@@ -56,10 +59,13 @@ public class MakeParallel extends Command
     	//get gyro angle in radians
     	double gyroAngle = SwerveDrive.gyro.getAngle();
     	gyroAngle %= 360;
-    	if (gyroAngle < 0) {gyroAngle += 360;}
+    	if (gyroAngle < 0) 
+    	{
+    		gyroAngle += 360;
+    	}
     	
     	//possible fix for possible problem
-    	//gyroAngle = 360 - gyroAngle;
+    	gyroAngle = 360 - gyroAngle;
     	
     	
     	gyroAngle *= Math.PI/180;
@@ -98,11 +104,13 @@ public class MakeParallel extends Command
     	if (!isOrigPosDone)
 		{
     	
+    		SmartDashboard.putString("status", "!isOrigPosDone");
+    		
 	    	//find angle the steering motors should eventually be at
-	    	double rotAngFR = Robot.swerveDrive.getRotationAngle(angDif, RobotMap.FRONTRIGHT_RADANGLE);
-	    	double rotAngFL = Robot.swerveDrive.getRotationAngle(angDif, RobotMap.FRONTLEFT_RADANGLE);
-	    	double rotAngBR = Robot.swerveDrive.getRotationAngle(angDif, RobotMap.BACKRIGHT_RADANGLE);
-	    	double rotAngBL = Robot.swerveDrive.getRotationAngle(angDif, RobotMap.BACKLEFT_RADANGLE);
+	    	double rotAngFR = Robot.swerveDrive.getRotationAngle(-angDif, RobotMap.FRONTRIGHT_RADANGLE);
+	    	double rotAngFL = Robot.swerveDrive.getRotationAngle(-angDif, RobotMap.FRONTLEFT_RADANGLE);
+	    	double rotAngBR = Robot.swerveDrive.getRotationAngle(-angDif, RobotMap.BACKRIGHT_RADANGLE);
+	    	double rotAngBL = Robot.swerveDrive.getRotationAngle(-angDif, RobotMap.BACKLEFT_RADANGLE);
 	    	
 	    	//find their components for relativizationism
 	    	double radXFR = Robot.swerveDrive.getRotCompX(rotAngFR, 1);
@@ -149,29 +157,35 @@ public class MakeParallel extends Command
 		
 		if (finalFR && finalFL && finalBR && finalBL) 
 		{
+			SmartDashboard.putString("status", "final Pos done");
+			SmartDashboard.putNumber("curDrivingPosiiton", SwerveDrive.drivingMotorBackRight.getPosition());
+
+			
 			isOrigPosDone = true;
 			
-	        SwerveDrive.drivingMotorFrontLeft.configPeakOutputVoltage(+4.5f, 0.0f);
-			SwerveDrive.drivingMotorFrontLeft.changeControlMode(TalonControlMode.Position);
-			SwerveDrive.drivingMotorFrontLeft.set(curDrivFLPosition + drivingDistance);
+	        SwerveDrive.drivingMotorBackRight.configPeakOutputVoltage(+4.5f, 0.0f);
+			SwerveDrive.drivingMotorBackRight.changeControlMode(TalonControlMode.Position);
+			SwerveDrive.drivingMotorBackRight.set(curDrivBRPosition + drivingDistance);
 			
 			
-			double motorOutput = SwerveDrive.drivingMotorFrontLeft.getOutputVoltage() / 12;
+			double motorOutput = SwerveDrive.drivingMotorBackRight.getOutputVoltage() / 12;
 			
 			SwerveDrive.drivingMotorFrontRight.set(-motorOutput);
 			SwerveDrive.drivingMotorBackRight.set(motorOutput);
 			SwerveDrive.drivingMotorBackLeft.set(motorOutput);
 			
-			if (SwerveDrive.drivingMotorFrontLeft.getEncPosition() > curDrivFLPosition + drivingDistance - 4) 
+			if (SwerveDrive.drivingMotorBackRight.getEncPosition() > curDrivBRPosition + drivingDistance - 4) 
 	    	{
-				double newXMagFR = Robot.swerveDrive.calcRelMagX(-1 * angDif, 0, curFRAngle);
-				double newYMagFR = Robot.swerveDrive.calcRelMagY(0, -1 * angDif, curFRAngle);
-				double newXMagFL = Robot.swerveDrive.calcRelMagX(0, 1 * angDif, curFLAngle);
-				double newYMagFL = Robot.swerveDrive.calcRelMagY(1 * angDif, 0, curFLAngle);
-				double newXMagBR = Robot.swerveDrive.calcRelMagX(0, -1 * angDif, curBRAngle);
-				double newYMagBR = Robot.swerveDrive.calcRelMagY(-1 * angDif, 0, curBRAngle);
-				double newXMagBL = Robot.swerveDrive.calcRelMagX(1 * angDif, 0, curBLAngle);
-				double newYMagBL = Robot.swerveDrive.calcRelMagY(0, 1 * angDif, curBLAngle);
+				SmartDashboard.putString("status", "driving motor position done");
+				
+				double newXMagFR = Robot.swerveDrive.calcRelMagX(Math.signum(angDif), 0, curFRAngle);
+				double newYMagFR = Robot.swerveDrive.calcRelMagY(0, Math.signum(angDif), curFRAngle);
+				double newXMagFL = Robot.swerveDrive.calcRelMagX(0, -Math.signum(angDif), curFLAngle);
+				double newYMagFL = Robot.swerveDrive.calcRelMagY(-Math.signum(angDif), 0, curFLAngle);
+				double newXMagBR = Robot.swerveDrive.calcRelMagX(0, Math.signum(angDif), curBRAngle);
+				double newYMagBR = Robot.swerveDrive.calcRelMagY(Math.signum(angDif), 0, curBRAngle);
+				double newXMagBL = Robot.swerveDrive.calcRelMagX(-Math.signum(angDif), 0, curBLAngle);
+				double newYMagBL = Robot.swerveDrive.calcRelMagY(0, -Math.signum(angDif), curBLAngle);
 				
 				double newPositionDifFR = Robot.swerveDrive.getPositionDif(newXMagFR, newYMagFR);
 		    	double newPositionDifFL = Robot.swerveDrive.getPositionDif(newXMagFL, newYMagFL);
@@ -206,7 +220,7 @@ public class MakeParallel extends Command
     {
     	if (finished)
     	{
-	        SwerveDrive.drivingMotorFrontLeft.configPeakOutputVoltage(+12f, 0.0f);
+	        SwerveDrive.drivingMotorBackRight.configPeakOutputVoltage(+12f, 0.0f);
     		return true;
     	}
     	return false;

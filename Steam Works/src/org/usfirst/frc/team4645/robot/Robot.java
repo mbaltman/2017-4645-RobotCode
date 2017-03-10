@@ -2,6 +2,10 @@
 package org.usfirst.frc.team4645.robot;
 
 import edu.wpi.cscore.UsbCamera;
+
+import edu.wpi.first.wpilibj.hal.PDPJNI;
+
+
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.*;
@@ -39,6 +43,9 @@ public class Robot extends IterativeRobot
 	public static final Gears gearSubsystem = new Gears();
 	public static final Vision visionSubsystem = new Vision();
 	public static final Shooter shooterSubsystem = new Shooter();
+	
+	//public PDPJNI pdp= new PDPJNI();
+	
 	
 	public static OI oi;
 	//Command Groups
@@ -85,6 +92,7 @@ public class Robot extends IterativeRobot
 	public void robotInit() 
 	{
 		oi = new OI();
+		
 		
 		
 		
@@ -136,14 +144,14 @@ public class Robot extends IterativeRobot
         SwerveDrive.steeringMotorBackLeft.setD(250);
         SwerveDrive.steeringMotorBackLeft.setAllowableClosedLoopErr(2);
         
-        SwerveDrive.drivingMotorFrontLeft.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-        SwerveDrive.drivingMotorFrontLeft.configNominalOutputVoltage(+0.0f, -0.0f);
-        SwerveDrive.drivingMotorFrontLeft.configPeakOutputVoltage(+12.0f, 0.0f);
-        SwerveDrive.drivingMotorFrontLeft.setP(2);
-        SwerveDrive.drivingMotorFrontLeft.setI(0);
-        SwerveDrive.drivingMotorFrontLeft.setD(100);
+        SwerveDrive.drivingMotorBackRight.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+        SwerveDrive.drivingMotorBackRight.configNominalOutputVoltage(+0.0f, -0.0f);
+        SwerveDrive.drivingMotorBackRight.configPeakOutputVoltage(+12.0f, 0.0f);
+        SwerveDrive.drivingMotorBackRight.setP(2);
+        SwerveDrive.drivingMotorBackRight.setI(0);
+        SwerveDrive.drivingMotorBackRight.setD(100);
         
-        //SwerveDrive.drivingMotorFrontLeft.enableBrakeMode(true);
+        //SwerveDrive.drivingMotorBackRight.enableBrakeMode(true);
         /*
         SwerveDrive.drivingMotorBackRight.setFeedbackDevice(FeedbackDevice.QuadEncoder);
         SwerveDrive.drivingMotorBackRight.configNominalOutputVoltage(+0.0f, -0.0f);
@@ -228,6 +236,7 @@ public class Robot extends IterativeRobot
 	@Override
 	public void teleopInit()
 	{
+		//pdp.clearPDPStickyFaults(0);
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
@@ -247,11 +256,13 @@ public class Robot extends IterativeRobot
 		Scheduler.getInstance().run();
 		
 		SmartDashboard.putNumber("Shooter speed", Shooter.shooterMotor.getEncVelocity());
+		SmartDashboard.putNumber("curDrivingPosiiton", SwerveDrive.drivingMotorBackRight.getPosition());
+
 		
 		//SmartDashboard.putNumber("Error", Shooter.shooterMotor.getClosedLoopError());
 		
 		/*
-		SmartDashboard.putNumber("drivingFLPosition", SwerveDrive.drivingMotorFrontLeft.getPosition());
+		SmartDashboard.putNumber("drivingFLPosition", SwerveDrive.drivingMotorBackRight.getPosition());
 		SmartDashboard.putNumber("drivingBRPosition", SwerveDrive.drivingMotorBackLeft.getPosition());
 		
 		SmartDashboard.putNumber("curFLDrivePosition", MoveToX.curDrivFLPosition);

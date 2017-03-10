@@ -18,7 +18,7 @@ public class MoveToY extends Command
 	
 	double distance;
 	double drivingDistance;
-	double curDrivFLPosition;
+	double curDrivBRPosition;
 	boolean finished;
 	boolean isOrigPosDone;
 
@@ -44,7 +44,7 @@ public class MoveToY extends Command
     {
     	//set distance to position
     	drivingDistance = Math.abs(distance) * 1670.84;
-    	curDrivFLPosition = SwerveDrive.drivingMotorFrontLeft.getEncPosition();
+    	curDrivBRPosition = SwerveDrive.drivingMotorBackRight.getEncPosition();
     	finished = false;
     	isOrigPosDone = false;
 
@@ -73,6 +73,9 @@ public class MoveToY extends Command
     	
     	if (!isOrigPosDone)
     	{
+    		
+    		SmartDashboard.putString("status", "!isOrigPosDone");
+
     		
     		//calc relative magnitudes
     		double newXMagFR = Robot.swerveDrive.calcRelMagX(0, Math.signum(distance), curFRAngle);
@@ -108,22 +111,30 @@ public class MoveToY extends Command
 		
 		if (finalFR && finalFL && finalBR && finalBL)
 		{
+			SmartDashboard.putString("status", "final Pos done");
+			SmartDashboard.putNumber("curDrivingPosiiton", SwerveDrive.drivingMotorBackRight.getPosition());
+			
+			
 			isOrigPosDone = true;
 			
-	        SwerveDrive.drivingMotorFrontLeft.configPeakOutputVoltage(+4.5f, 0.0f);
-			SwerveDrive.drivingMotorFrontLeft.changeControlMode(TalonControlMode.Position);
-			SwerveDrive.drivingMotorFrontLeft.set(curDrivFLPosition + drivingDistance);
+	        SwerveDrive.drivingMotorBackRight.configPeakOutputVoltage(+4.5f, 0.0f);
+			SwerveDrive.drivingMotorBackRight.changeControlMode(TalonControlMode.Position);
+			SwerveDrive.drivingMotorBackRight.set(curDrivBRPosition + drivingDistance);
 		
 			
-			double motorOutput = SwerveDrive.drivingMotorFrontLeft.getOutputVoltage() / 12;
-			
+			double motorOutput = SwerveDrive.drivingMotorBackRight.getOutputVoltage() / 12;
+			SmartDashboard.putNumber("motorOutput", motorOutput);
+
 			
 			SwerveDrive.drivingMotorFrontRight.set(-motorOutput);
 			SwerveDrive.drivingMotorBackRight.set(motorOutput);
 			SwerveDrive.drivingMotorBackLeft.set(motorOutput);
 			
-			if (SwerveDrive.drivingMotorFrontLeft.getEncPosition() > curDrivFLPosition + drivingDistance - 4) 
+			if (SwerveDrive.drivingMotorBackRight.getEncPosition() > curDrivBRPosition + drivingDistance - 4) 
 	    	{
+				SmartDashboard.putString("status", "driving motor position done");
+
+				
 				double newXMagFR = Robot.swerveDrive.calcRelMagX(-.669 * distance, .743 * distance, curFRAngle);
 				double newYMagFR = Robot.swerveDrive.calcRelMagY(.743 * distance, -.669 * distance, curFRAngle);
 				double newXMagFL = Robot.swerveDrive.calcRelMagX(.669 * distance, .743 * distance, curFLAngle);
@@ -150,6 +161,8 @@ public class MoveToY extends Command
 				
 				if (endFR && endFL && endBR && endBL)
 				{
+					SmartDashboard.putString("status", "ended");
+					
 					finished = true;	
 				}
 	        }
@@ -163,7 +176,7 @@ public class MoveToY extends Command
     {
     	if (finished)
     	{
-	        SwerveDrive.drivingMotorFrontLeft.configPeakOutputVoltage(+12f, 0.0f);
+	        SwerveDrive.drivingMotorBackRight.configPeakOutputVoltage(+12f, 0.0f);
     		return true;
     	}
     	return false;
@@ -172,7 +185,7 @@ public class MoveToY extends Command
     // Called once after isFinished returns true
     protected void end() 
     {
-        SwerveDrive.drivingMotorFrontLeft.configPeakOutputVoltage(+12.0f, 0.0f);
+        SwerveDrive.drivingMotorBackRight.configPeakOutputVoltage(+12.0f, 0.0f);
     }
 
     // Called when another command which requires one or more of the same

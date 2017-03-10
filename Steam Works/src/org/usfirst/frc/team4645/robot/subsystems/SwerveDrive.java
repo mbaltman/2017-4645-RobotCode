@@ -23,8 +23,8 @@ public class SwerveDrive extends Subsystem
 	public static CANTalon steeringMotorBackLeft = new CANTalon(RobotMap.steerBL);
 	
 	public static Talon drivingMotorFrontRight = new Talon(RobotMap.driveFR);
-	public static CANTalon drivingMotorFrontLeft = new CANTalon(RobotMap.driveFL);
-	public static Talon drivingMotorBackRight = new Talon(RobotMap.driveBR);
+	public static Talon drivingMotorFrontLeft = new Talon(RobotMap.driveFL);
+	public static CANTalon drivingMotorBackRight = new CANTalon(RobotMap.driveBR);
 	public static Talon drivingMotorBackLeft = new Talon(RobotMap.driveBL);
 	
 	public static GyroBase gyro = new ADXRS450_Gyro();

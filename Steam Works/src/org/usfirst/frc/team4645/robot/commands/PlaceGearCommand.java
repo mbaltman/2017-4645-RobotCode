@@ -31,37 +31,30 @@ public class PlaceGearCommand extends CommandGroup
         // arm.
     	//faces the gear
     	
-    	//it is assumed that this command starts with the gear retroreflective tape already in view
-    	
-    	//makes itself parallel to the face of the airship with gear on it 
     	addSequential(new MakeParallel(gearDegree));
     	
-    	//get vision values
+    	//updates vision values and moves in X, drops gear
     	double[] distanceInformation=(Robot.visionSubsystem.returnGearInformation());
-    	
-    	//lines itself up in x so that the gear subsystem is directly in front of the peg
     	addSequential(new MoveToX(0-distanceInformation[0]));
     	
-    	//drops the gear
     	addSequential(new DropGearCommand());
         
-    	//gets vision values again
+    	//updates vision values and moves in Y, pushes gear
     	distanceInformation=(Robot.visionSubsystem.returnGearInformation());
+     	addSequential(new MoveToY(RobotMap.GEAR_DISTANCE+distanceInformation[1]));
      	
-    	//calculates how far forwards it must move to be on the peg but not hitting the airship and moves
-    	addSequential(new MoveToY(distanceInformation[1]-RobotMap.GEAR_DISTANCE));
      	
-    	//pushes the gear onto the peg
-     	addSequential(new PushGearCommand());
      
-     	//backs up 
-    	addSequential( new MoveToY(backUpDistance));
+     	addSequential(new PushGearCommand());
+     	
+     	//backs up and resets gear servos
+    	addSequential( new MoveToY(backUpDistance/2));
     	
-    	//returns gear subsystem to intial spot
-    	addSequential(new HoldGearCommand());
+    	//addSequential(new ResetPushGearCommand());
     	
+    	addSequential( new MoveToY(backUpDistance/2));
     	
-    	
+    	//addSequential(new ResetDropGearCommand());
     	
     	
     	
