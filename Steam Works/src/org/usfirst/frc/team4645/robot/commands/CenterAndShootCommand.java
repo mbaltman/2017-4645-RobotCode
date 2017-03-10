@@ -44,7 +44,8 @@ public class CenterAndShootCommand extends CommandGroup
        
         
         //updates vision
-        distanceInformation=(Robot.visionSubsystem.returnBoilerInformation());
+        
+        
         //moves Y
         double positionFinalY;
         if (shooterSpeed == RobotMap.fastSpeed)
@@ -55,17 +56,12 @@ public class CenterAndShootCommand extends CommandGroup
         {
         	positionFinalY = RobotMap.closeY;
         }
+        
+        distanceInformation=(Robot.visionSubsystem.returnBoilerInformation());
     	addSequential(new MoveToY(positionFinalY-distanceInformation[1]));
     	
-    	/*
-    	//shoots if holding or in auto
-    	while (OI.leftJoy.getTrigger() || Robot.auto)
-    	{
-    		Robot.shooterSubsystem.shoot(shooterSpeed);
-    		Robot.reservoirSubsystem.alternate();
-    	}
-        
-    	*/
+    	addSequential(new TestShoot(),5);
+    	
     
     }
 }
