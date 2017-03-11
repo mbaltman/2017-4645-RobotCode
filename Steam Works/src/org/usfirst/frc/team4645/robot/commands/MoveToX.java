@@ -68,6 +68,8 @@ public class MoveToX extends Command
     	if (!isOrigPosDone)
     	{
     		SmartDashboard.putString("status", "!isOrigPosDone");
+			SmartDashboard.putString("status2", "!isOrigPosDone");
+			
     		
 	    	//calc relative magnitudes
 	    	double newXMagFR = Robot.swerveDrive.calcRelMagX(-Math.signum(distance), 0, curFRAngle);
@@ -117,15 +119,19 @@ public class MoveToX extends Command
 		if (finalFR && finalFL && finalBR && finalBL) 
 		{
 			SmartDashboard.putString("status", "final Pos done");
-			SmartDashboard.putNumber("curDrivingPosiiton", SwerveDrive.drivingMotorFrontLeft.getPosition());
+			SmartDashboard.putNumber("curDrivingPosiiton", SwerveDrive.drivingMotorBackRight.getEncPosition());
 			
 			isOrigPosDone = true;
 			
 			
 			
-	        SwerveDrive.drivingMotorBackRight.configPeakOutputVoltage(+4.5f, 0.0f);
+	        SwerveDrive.drivingMotorBackRight.configPeakOutputVoltage(4.5f, 0.0f);
 			SwerveDrive.drivingMotorBackRight.changeControlMode(TalonControlMode.Position);
 			SwerveDrive.drivingMotorBackRight.set(curDrivBRPosition + drivingDistance);
+			
+			SmartDashboard.putNumber("error", SwerveDrive.drivingMotorBackRight.getError());
+			SmartDashboard.putNumber("new position", curDrivBRPosition + drivingDistance);
+			SmartDashboard.putNumber("curPos", curDrivBRPosition);
 			
 			double motorOutput = SwerveDrive.drivingMotorBackRight.getOutputVoltage() / 12.0;
 			SmartDashboard.putNumber("motorOutput", motorOutput);
@@ -134,9 +140,9 @@ public class MoveToX extends Command
 			SwerveDrive.drivingMotorFrontLeft.set(motorOutput);
 			SwerveDrive.drivingMotorBackLeft.set(motorOutput);
 			
-			if (SwerveDrive.drivingMotorBackRight.getEncPosition() > curDrivBRPosition + drivingDistance - 4) 
+			if (SwerveDrive.drivingMotorBackRight.getEncPosition() > (curDrivBRPosition + drivingDistance - 4))
 	    	{
-				SmartDashboard.putString("status", "driving motor position done");
+				SmartDashboard.putString("status2", "driving motor position done");
 				
 				double newXMagFR = Robot.swerveDrive.calcRelMagX(-.669 * distance, .743 * distance, curFRAngle);
 				double newYMagFR = Robot.swerveDrive.calcRelMagY(.743 * distance, -.669 * distance, curFRAngle);
@@ -180,7 +186,7 @@ public class MoveToX extends Command
     {
     	if (finished)
     	{
-	        SwerveDrive.drivingMotorBackRight.configPeakOutputVoltage(+12f, 0.0f);
+	        //SwerveDrive.drivingMotorBackRight.configPeakOutputVoltage(+12f, 0.0f);
     		return true;
     	}
     	return false;
