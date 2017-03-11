@@ -81,7 +81,7 @@ public class MakeParallel extends Command
     	//find the position to run the driving motors to
     	angDif = Math.atan2(newY, newX);
     	drivingDistance = Math.abs(angDif * RobotMap.RADIUS);
-    	drivingDistance *= 1670.84;
+    	drivingDistance *= -1670.84;
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -105,6 +105,8 @@ public class MakeParallel extends Command
 		{
     	
     		SmartDashboard.putString("status", "!isOrigPosDone");
+			SmartDashboard.putString("status2", "!isOrigPosDone");
+			
     		
 	    	//find angle the steering motors should eventually be at
 	    	double rotAngFR = Robot.swerveDrive.getRotationAngle(-angDif, RobotMap.FRONTRIGHT_RADANGLE);
@@ -148,17 +150,17 @@ public class MakeParallel extends Command
 		
 			//set driving motor output
 		
-			finalFR = positionDifFR + RobotMap.FRONTRIGHT_ERROR > -3 && positionDifFR + RobotMap.FRONTRIGHT_ERROR < 3;
-			finalFL = positionDifFL + RobotMap.FRONTLEFT_ERROR > -3 && positionDifFL + RobotMap.FRONTLEFT_ERROR < 3;
-			finalBR = positionDifBR + RobotMap.BACKRIGHT_ERROR > -3 && positionDifBR + RobotMap.BACKRIGHT_ERROR < 3;
-			finalBL = positionDifBL + RobotMap.BACKLEFT_ERROR > -3 && positionDifBL + RobotMap.BACKLEFT_ERROR < 3;
+			finalFR = positionDifFR + RobotMap.FRONTRIGHT_ERROR > -5 && positionDifFR + RobotMap.FRONTRIGHT_ERROR < 5;
+			finalFL = positionDifFL + RobotMap.FRONTLEFT_ERROR > -5 && positionDifFL + RobotMap.FRONTLEFT_ERROR < 5;
+			finalBR = positionDifBR + RobotMap.BACKRIGHT_ERROR > -5 && positionDifBR + RobotMap.BACKRIGHT_ERROR < 5;
+			finalBL = positionDifBL + RobotMap.BACKLEFT_ERROR > -5 && positionDifBL + RobotMap.BACKLEFT_ERROR < 5;
 		
 		}
 		
 		if (finalFR && finalFL && finalBR && finalBL) 
 		{
 			SmartDashboard.putString("status", "final Pos done");
-			SmartDashboard.putNumber("curDrivingPosiiton", SwerveDrive.drivingMotorBackRight.getPosition());
+			SmartDashboard.putNumber("curDrivingPosiiton", SwerveDrive.drivingMotorBackRight.getEncPosition());
 
 			
 			isOrigPosDone = true;
@@ -171,12 +173,13 @@ public class MakeParallel extends Command
 			double motorOutput = SwerveDrive.drivingMotorBackRight.getOutputVoltage() / 12;
 			
 			SwerveDrive.drivingMotorFrontRight.set(-motorOutput);
-			SwerveDrive.drivingMotorBackRight.set(motorOutput);
+			SwerveDrive.drivingMotorFrontLeft.set(motorOutput);
 			SwerveDrive.drivingMotorBackLeft.set(motorOutput);
 			
-			if (SwerveDrive.drivingMotorBackRight.getEncPosition() > curDrivBRPosition + drivingDistance - 4) 
+			if (SwerveDrive.drivingMotorBackRight.getEncPosition() < curDrivBRPosition + drivingDistance + 4) 
 	    	{
-				SmartDashboard.putString("status", "driving motor position done");
+				SmartDashboard.putString("status2", "driving motor position done");
+				
 				
 				double newXMagFR = Robot.swerveDrive.calcRelMagX(Math.signum(angDif), 0, curFRAngle);
 				double newYMagFR = Robot.swerveDrive.calcRelMagY(0, Math.signum(angDif), curFRAngle);
@@ -197,10 +200,10 @@ public class MakeParallel extends Command
 				Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorBackRight, curBRPosition, newPositionDifBR, RobotMap.BACKRIGHT_ERROR);
 				Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorBackLeft, curBLPosition, newPositionDifBL, RobotMap.BACKLEFT_ERROR);
 	        	
-				boolean endFR = newPositionDifFR + RobotMap.FRONTRIGHT_ERROR > -3 && newPositionDifFR + RobotMap.FRONTRIGHT_ERROR < 3;
-				boolean endFL = newPositionDifFL + RobotMap.FRONTLEFT_ERROR > -3 && newPositionDifFL + RobotMap.FRONTLEFT_ERROR < 3;
-				boolean endBR = newPositionDifBR + RobotMap.BACKRIGHT_ERROR > -3 && newPositionDifBR + RobotMap.BACKRIGHT_ERROR < 3;
-				boolean endBL = newPositionDifBL + RobotMap.BACKLEFT_ERROR > -3 && newPositionDifBL + RobotMap.BACKLEFT_ERROR < 3;
+				boolean endFR = newPositionDifFR + RobotMap.FRONTRIGHT_ERROR > -5 && newPositionDifFR + RobotMap.FRONTRIGHT_ERROR < 5;
+				boolean endFL = newPositionDifFL + RobotMap.FRONTLEFT_ERROR > -5 && newPositionDifFL + RobotMap.FRONTLEFT_ERROR < 5;
+				boolean endBR = newPositionDifBR + RobotMap.BACKRIGHT_ERROR > -5 && newPositionDifBR + RobotMap.BACKRIGHT_ERROR < 5;
+				boolean endBL = newPositionDifBL + RobotMap.BACKLEFT_ERROR > -5 && newPositionDifBL + RobotMap.BACKLEFT_ERROR < 5;
 				
 				if (endFR && endFL && endBR && endBL)
 				{
@@ -220,7 +223,6 @@ public class MakeParallel extends Command
     {
     	if (finished)
     	{
-	        SwerveDrive.drivingMotorBackRight.configPeakOutputVoltage(+12f, 0.0f);
     		return true;
     	}
     	return false;
@@ -229,6 +231,7 @@ public class MakeParallel extends Command
     // Called once after isFinished returns true
     protected void end() 
     {
+        SwerveDrive.drivingMotorBackRight.configPeakOutputVoltage(+12f, 0.0f);
     }
 
     // Called when another command which requires one or more of the same

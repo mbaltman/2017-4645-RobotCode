@@ -61,8 +61,9 @@ public class OI
 		
 		
 		
-		button1_10.whenPressed(new MoveToX(1));
-		
+		button1_10.whenPressed(new MakeParallel(60));
+		button1_11.whenPressed(new MoveToX(.2));
+		button1_12.whenPressed(new MoveToY(-.2));
 		
 		
 		button2_7.whenPressed(new DropGearCommand());

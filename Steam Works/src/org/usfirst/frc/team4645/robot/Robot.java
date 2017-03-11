@@ -147,9 +147,12 @@ public class Robot extends IterativeRobot
         SwerveDrive.drivingMotorBackRight.setFeedbackDevice(FeedbackDevice.QuadEncoder);
         SwerveDrive.drivingMotorBackRight.configNominalOutputVoltage(+0.0f, -0.0f);
         SwerveDrive.drivingMotorBackRight.configPeakOutputVoltage(+12.0f, 0.0f);
-        SwerveDrive.drivingMotorBackRight.setP(2);
+        SwerveDrive.drivingMotorBackRight.setP(5);
         SwerveDrive.drivingMotorBackRight.setI(0);
-        SwerveDrive.drivingMotorBackRight.setD(100);
+        SwerveDrive.drivingMotorBackRight.setD(50);
+        SwerveDrive.drivingMotorBackRight.reverseSensor(false);
+        SwerveDrive.drivingMotorBackRight.reverseOutput(true);
+
         
         //SwerveDrive.drivingMotorBackRight.enableBrakeMode(true);
         /*
@@ -256,7 +259,7 @@ public class Robot extends IterativeRobot
 		Scheduler.getInstance().run();
 		
 		SmartDashboard.putNumber("Shooter speed", Shooter.shooterMotor.getEncVelocity());
-		SmartDashboard.putNumber("curDrivingPosiiton", SwerveDrive.drivingMotorBackRight.getPosition());
+		SmartDashboard.putNumber("curDrivingPosiiton", SwerveDrive.drivingMotorBackRight.getEncPosition());
 
 		
 		//SmartDashboard.putNumber("Error", Shooter.shooterMotor.getClosedLoopError());

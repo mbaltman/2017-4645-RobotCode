@@ -45,8 +45,8 @@ public class RobotMap
 	
 	public static final double FRONTRIGHT_ERROR = 126; //113 enforcer, 126 iron
 	public static final double FRONTLEFT_ERROR = -207; //147 enforcer, -207 iron
-	public static final double BACKRIGHT_ERROR = -49; //64 enforcer, -49
-	public static final double BACKLEFT_ERROR = 146; //21 enforcer, 146 iron
+	public static final double BACKRIGHT_ERROR = -24; //64 enforcer, -24 iron
+	public static final double BACKLEFT_ERROR = -27; //21 enforcer, -27 iron
 	 
 	
 	//Radius angles (degrees) and value (meters)
