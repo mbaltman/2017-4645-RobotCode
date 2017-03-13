@@ -6,6 +6,7 @@ import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.Servo;
 
 /**
  *
@@ -17,6 +18,7 @@ public class Climbing extends Subsystem
     // here. Call these from Commands.
 	public static Talon climbingTopMotor = new Talon(RobotMap.hangerMotorT);
 	public static Talon climbingBottomMotor = new Talon(RobotMap.hangerMotorB);
+	public static Servo climbingServo = new Servo(RobotMap.climbingServo);
 	
     public void initDefaultCommand() 
     {
@@ -35,5 +37,27 @@ public class Climbing extends Subsystem
         climbingBottomMotor.set(-1);
     
     }
+    
+    public void liftServo()
+    {
+    	climbingServo.set(1);
+    }
+    
+    public void dropServo()
+    {
+    	climbingServo.set(.5);
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
