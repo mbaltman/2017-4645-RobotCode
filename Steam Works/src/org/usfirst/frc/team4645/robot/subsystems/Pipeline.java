@@ -25,8 +25,7 @@ import org.opencv.objdetect.*;
 *
 * @author GRIP
 */
-public class Pipeline implements VisionPipeline 
-{
+public class Pipeline implements VisionPipeline {
 
 	//Outputs
 	private Mat resizeImageOutput = new Mat();
@@ -34,16 +33,14 @@ public class Pipeline implements VisionPipeline
 	private ArrayList<MatOfPoint> findContoursOutput = new ArrayList<MatOfPoint>();
 	private ArrayList<MatOfPoint> filterContoursOutput = new ArrayList<MatOfPoint>();
 
-	static 
-	{
+	static {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 	}
 
 	/**
 	 * This is the primary method that runs the entire pipeline and updates the outputs.
 	 */
-	@Override	public void process(Mat source0) 
-	{
+	@Override	public void process(Mat source0) {
 		// Step Resize_Image0:
 		Mat resizeImageInput = source0;
 		double resizeImageWidth = 320.0;
@@ -84,8 +81,7 @@ public class Pipeline implements VisionPipeline
 	 * This method is a generated getter for the output of a Resize_Image.
 	 * @return Mat output from Resize_Image.
 	 */
-	public Mat resizeImageOutput() 
-	{
+	public Mat resizeImageOutput() {
 		return resizeImageOutput;
 	}
 
@@ -101,8 +97,7 @@ public class Pipeline implements VisionPipeline
 	 * This method is a generated getter for the output of a Find_Contours.
 	 * @return ArrayList<MatOfPoint> output from Find_Contours.
 	 */
-	public ArrayList<MatOfPoint> findContoursOutput() 
-	{
+	public ArrayList<MatOfPoint> findContoursOutput() {
 		return findContoursOutput;
 	}
 
@@ -110,8 +105,7 @@ public class Pipeline implements VisionPipeline
 	 * This method is a generated getter for the output of a Filter_Contours.
 	 * @return ArrayList<MatOfPoint> output from Filter_Contours.
 	 */
-	public ArrayList<MatOfPoint> filterContoursOutput() 
-	{
+	public ArrayList<MatOfPoint> filterContoursOutput() {
 		return filterContoursOutput;
 	}
 
@@ -125,8 +119,7 @@ public class Pipeline implements VisionPipeline
 	 * @param output The image in which to store the output.
 	 */
 	private void resizeImage(Mat input, double width, double height,
-		int interpolation, Mat output) 
-	{
+		int interpolation, Mat output) {
 		Imgproc.resize(input, output, new Size(width, height), 0.0, 0.0, interpolation);
 	}
 
@@ -140,8 +133,7 @@ public class Pipeline implements VisionPipeline
 	 * @param output The image in which to store the output.
 	 */
 	private void hsvThreshold(Mat input, double[] hue, double[] sat, double[] val,
-	    Mat out) 
-	{
+	    Mat out) {
 		Imgproc.cvtColor(input, out, Imgproc.COLOR_BGR2HSV);
 		Core.inRange(out, new Scalar(hue[0], sat[0], val[0]),
 			new Scalar(hue[1], sat[1], val[1]), out);
@@ -155,17 +147,14 @@ public class Pipeline implements VisionPipeline
 	 * @param output The image in which to store the output.
 	 */
 	private void findContours(Mat input, boolean externalOnly,
-		List<MatOfPoint> contours) 
-	{
+		List<MatOfPoint> contours) {
 		Mat hierarchy = new Mat();
 		contours.clear();
 		int mode;
-		if (externalOnly) 
-		{
+		if (externalOnly) {
 			mode = Imgproc.RETR_EXTERNAL;
 		}
-		else 
-		{
+		else {
 			mode = Imgproc.RETR_LIST;
 		}
 		int method = Imgproc.CHAIN_APPROX_SIMPLE;
@@ -192,8 +181,7 @@ public class Pipeline implements VisionPipeline
 	private void filterContours(List<MatOfPoint> inputContours, double minArea,
 		double minPerimeter, double minWidth, double maxWidth, double minHeight, double
 		maxHeight, double[] solidity, double maxVertexCount, double minVertexCount, double
-		minRatio, double maxRatio, List<MatOfPoint> output) 
-	{
+		minRatio, double maxRatio, List<MatOfPoint> output) {
 		final MatOfInt hull = new MatOfInt();
 		output.clear();
 		//operation
@@ -208,8 +196,7 @@ public class Pipeline implements VisionPipeline
 			Imgproc.convexHull(contour, hull);
 			MatOfPoint mopHull = new MatOfPoint();
 			mopHull.create((int) hull.size().height, 1, CvType.CV_32SC2);
-			for (int j = 0; j < hull.size().height; j++) 
-			{
+			for (int j = 0; j < hull.size().height; j++) {
 				int index = (int)hull.get(j, 0)[0];
 				double[] point = new double[] { contour.get(index, 0)[0], contour.get(index, 0)[1]};
 				mopHull.put(j, 0, point);
@@ -227,5 +214,4 @@ public class Pipeline implements VisionPipeline
 
 
 }
-
 

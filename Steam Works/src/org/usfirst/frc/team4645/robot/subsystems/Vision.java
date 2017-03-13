@@ -71,6 +71,7 @@ public class Vision extends Subsystem {
 		        }
 		    }
 		    );
+		    
 		    visionThreadBoiler.start();
 		    
 		    
@@ -107,60 +108,62 @@ public class Vision extends Subsystem {
     public double[] returnBoilerInformation()
 	{
     	
-    	double[] coordinate={0,0,0,0,0,0};
+    	double[] coordinateB={0,0,0,0,0,0};
     	
     	synchronized (imgLockBoiler) 
     	 {
-    		coordinate[2]= centerXB;
-    		coordinate[3]= centerYB;
+    		coordinateB[2]= centerXB;
+    		coordinateB[3]= centerYB;
     		 
-    		coordinate[4]= widthB;
+    		coordinateB[4]= widthB;
     		
-    		 coordinate[5]= heightB;
+    		 coordinateB[5]= heightB;
     		 
     	 }
     	
-    	double shortestDistance =(11.8*510)/widthB;//calculate exact distance from camera to center of tape
+    	double shortestDistance =(11.8 * 510)/widthB;//calculate exact distance from camera to center of tape
+    	
     	shortestDistance= shortestDistance * .0254; //convert to meters
 		
-    	double sine = (coordinate[2] -160) /160;;
-		double distanceY= Math.sqrt((shortestDistance* shortestDistance)-(3.7084* 3.7084));
+    	double sine = (coordinateB[2] -160) /160;;
+		
+    	double distanceY= Math.sqrt((shortestDistance* shortestDistance)-(2.19 * 2.19));
 		double distanceX = distanceY * sine;
 		
-		coordinate[0]=distanceX;
-		coordinate[1]=distanceY;
+		coordinateB[0]=distanceX;
+		coordinateB[1]=distanceY;
 		
-    	return coordinate;
+    	return coordinateB;
 	
 	}
     
     public double[] returnGearInformation()
    	{
        	
-       	double[] coordinate={0,0,0,0,0,0};
+       	double[] coordinateG={0,0,0,0,0,0};
        	
        	synchronized (imgLockGear) 
        	 {
-       		coordinate[2]= centerXG;
-       		coordinate[3]= centerYG;
+       		coordinateG[2]= centerXG;
+       		coordinateG[3]= centerYG;
        		 
-       		coordinate[4]= widthG;
+       		coordinateG[4]= widthG;
        		
-       		 coordinate[5]= heightG;
+       		coordinateG[5]= heightG;
        		 
        	 }
        	
-       	double shortestDistance =(11.8*510)/widthG;//calculate exact distance from camera to center of tape
+       	double shortestDistance =(2*510)/widthG;//calculate exact distance from camera to center of tape
        	shortestDistance= shortestDistance * .0254; //convert to meters
    		
-       	double sine = (coordinate[2] -160) /160;;
-   		double distanceY= Math.sqrt((shortestDistance* shortestDistance)-(3.7084* 3.7084));
+       	double sine = (coordinateG[2] -160) /160;;
+   		double distanceY= Math.sqrt((shortestDistance* shortestDistance)-(.385* .385));
    		double distanceX = distanceY * sine;
    		
-   		coordinate[0]=distanceX;
-   		coordinate[1]=distanceY;
+   		coordinateG[0]=distanceX;
+   		coordinateG[1]=distanceY;
    		
-       	return coordinate;
+       	return coordinateG;
    	
    	}
  

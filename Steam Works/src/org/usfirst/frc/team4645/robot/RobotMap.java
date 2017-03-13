@@ -30,10 +30,10 @@ public class RobotMap
 	
 	//SRX IDs
 	public static final int steerFR = 0;
-	public static final int steerFL = 1;
+	public static final int steerFL = 4;
 	public static final int steerBL = 2;
 	public static final int steerBR = 3;
-	public static final int reservoirMotorPort = 4;
+	public static final int reservoirMotorPort = 1;
 	public static final int driveBR = 5;
 	
 	
@@ -44,7 +44,7 @@ public class RobotMap
 	
 	
 	public static final double FRONTRIGHT_ERROR = 126; //113 enforcer, 126 iron
-	public static final double FRONTLEFT_ERROR = -207; //147 enforcer, -207 iron
+	public static final double FRONTLEFT_ERROR = -24; //147 enforcer, -207 iron
 	public static final double BACKRIGHT_ERROR = -24; //64 enforcer, -24 iron
 	public static final double BACKLEFT_ERROR = -27; //21 enforcer, -27 iron
 	 
