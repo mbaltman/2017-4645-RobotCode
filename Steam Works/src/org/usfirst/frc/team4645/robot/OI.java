@@ -61,7 +61,7 @@ public class OI
 		
 		
 		
-		button1_10.whenPressed(new MakeParallel(0));
+		button1_10.whenPressed(new MakeParallel(60));
 		button1_11.whenPressed(new MoveToX(.2));
 		button1_12.whenPressed(new MoveToY(-.2));
 		
@@ -71,6 +71,7 @@ public class OI
 		button2_9.whenReleased(new HoldGearCommand());
 		
 		button2_5.whileHeld(new ClimbCommand());
+		button2_12.whileHeld(new ClimbingServo());
 		
 		button2_6.whileHeld(new IntakeCommand());
 	
@@ -81,3 +82,13 @@ public class OI
 	
 	// button.whenReleased(new ExampleCommand());
 }
+
+
+
+
+
+
+
+
+
+
