@@ -26,7 +26,8 @@ public class RobotMap
 	
 	public static final int gearServoLeft = 2;
 	public static final int gearServoRight = 1; //9
-	//0 PWM is open
+	public static final int climbingServo = 0; 
+	
 	
 	//SRX IDs
 	public static final int steerFR = 0;
@@ -56,6 +57,11 @@ public class RobotMap
 	public static final double BACKLEFT_RADANGLE = 228;
 	
 	public static final double RADIUS = 0.427;
+	
+	//dylan wanted changes
+	public static int gyroLock;
+	public static int zLock;
+	public static int xLock;
 	
 	//Shooter speeds, TBD
 	public static final double slowSpeed = -475;

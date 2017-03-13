@@ -177,6 +177,12 @@ public class Robot extends IterativeRobot
        // Shooter.shooterMotor.setI(0); 
         Shooter.shooterMotor.setD(0.3); //81.84
 		
+        
+        //dylan wanted changes
+        RobotMap.gyroLock = 1;
+        RobotMap.zLock = 1;
+        RobotMap.xLock = 1;
+        
 	}
 
 	/**
