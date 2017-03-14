@@ -114,11 +114,13 @@ public class MoveToY extends Command
 		{
 			SmartDashboard.putString("status", "final Pos done");
 			SmartDashboard.putNumber("curDrivingPosiiton", SwerveDrive.drivingMotorBackRight.getEncPosition());
-			
+			SmartDashboard.putNumber("origPos", curDrivBRPosition);
+			SmartDashboard.putNumber("drivingDistance", drivingDistance);
+			SmartDashboard.putNumber("newPos", curDrivBRPosition + drivingDistance);
 			
 			isOrigPosDone = true;
 			
-	        SwerveDrive.drivingMotorBackRight.configPeakOutputVoltage(+4.5f, 0.0f);
+	        SwerveDrive.drivingMotorBackRight.configPeakOutputVoltage(+3.5f, 0.0f);
 			SwerveDrive.drivingMotorBackRight.changeControlMode(TalonControlMode.Position);
 			SwerveDrive.drivingMotorBackRight.set(curDrivBRPosition + drivingDistance);
 		
@@ -131,9 +133,10 @@ public class MoveToY extends Command
 			SwerveDrive.drivingMotorFrontLeft.set(motorOutput);
 			SwerveDrive.drivingMotorBackLeft.set(motorOutput);
 			
-			if (SwerveDrive.drivingMotorBackRight.getEncPosition() < curDrivBRPosition + drivingDistance + 4) 
+			if (SwerveDrive.drivingMotorBackRight.getEncPosition() < curDrivBRPosition + drivingDistance + 10) 
 	    	{
 				SmartDashboard.putString("status2", "driving motor position done");
+				
 
 				
 				double newXMagFR = Robot.swerveDrive.calcRelMagX(.669 * distance, -.743 * distance, curFRAngle);

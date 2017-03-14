@@ -165,7 +165,7 @@ public class MakeParallel extends Command
 			
 			isOrigPosDone = true;
 			
-	        SwerveDrive.drivingMotorBackRight.configPeakOutputVoltage(+4.5f, 0.0f);
+	        SwerveDrive.drivingMotorBackRight.configPeakOutputVoltage(+3.5f, 0.0f);
 			SwerveDrive.drivingMotorBackRight.changeControlMode(TalonControlMode.Position);
 			SwerveDrive.drivingMotorBackRight.set(curDrivBRPosition + drivingDistance);
 			

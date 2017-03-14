@@ -52,7 +52,7 @@ public class Autonomous extends CommandGroup
     	}
     	else if (position.equals("Middle"))
     	{
-    		initialDistanceY = -1.7;
+    		initialDistanceY = -1.925;
     	}
     	else
     	{
@@ -72,13 +72,13 @@ public class Autonomous extends CommandGroup
     	
     	
     	//find distance to backup from gear
-    	if (position.equals("Loading"))
+    	if (position.equals("Boiler"))
     	{
-    		backUpDistance = 1;
+    		backUpDistance = 1.69 - RobotMap.GEAR_DISTANCE;
     	}
     	else 
     	{
-    		backUpDistance = 1.5;
+    		backUpDistance = 1;
     	}
     	
     	
@@ -90,25 +90,25 @@ public class Autonomous extends CommandGroup
     	if (redBoiler)
     	{
     		addSequential(new MakeParallel(60));
-    		addSequential(new MoveToY(-1.68));
+    		addSequential(new MoveToY(-1.49));
     	}
     	
     	else if (redLoading)
     	{
     		addSequential(new MakeParallel(-60));
-    		addSequential(new MoveToY(-1.76));
+    		addSequential(new MoveToY(-1.73));
     	}
     	
     	else if (blueBoiler)
     	{
     		addSequential(new MakeParallel(-60));
-    		addSequential(new MoveToY(-1.68));
+    		addSequential(new MoveToY(-1.49));
     	}
     	
     	else if (blueLoading)
     	{
     		addSequential(new MakeParallel(60));
-    		addSequential(new MoveToY(-1.76));
+    		addSequential(new MoveToY(-1.73));
     	}
     
     	
@@ -136,8 +136,12 @@ public class Autonomous extends CommandGroup
     	//face boiler, center and shoot
     	if (redBoiler || blueBoiler)
     	{
+    		//addSequential (new MoveToY(1.69 - RobotMap.GEAR_DISTANCE));
     		addSequential(new MakeParallel(boilerAngle));
-    		addSequential(new TestShoot());
+    		addSequential(new MoveToX((.44 + (Math.signum(boilerAngle) * .2625)) * Math.signum(boilerAngle)));
+    		addParallel(new TestShoot(),8);
+    		addSequential(new ReservoirCommand(),8);
+    		
     		
     	}
     	

@@ -63,6 +63,7 @@ public class OI
 //		button1_9.whenPressed(new TankDriveLock());
 //		
 		
+		button1_6.whenPressed(new MoveToY(-3));
 		
 		button2_7.whenPressed(new DropGearCommand());
 		button2_9.whenPressed(new PushGearCommand());
