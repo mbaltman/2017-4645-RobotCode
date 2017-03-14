@@ -59,9 +59,9 @@ public class RobotMap
 	public static final double RADIUS = 0.427;
 	
 	//dylan wanted changes
-	public static int gyroLock;
-	public static int zLock;
-	public static int xLock;
+//	public static int gyroLock;
+//	public static int zLock;
+//	public static int xLock;
 	
 	//Shooter speeds, TBD
 	public static final double slowSpeed = -475;

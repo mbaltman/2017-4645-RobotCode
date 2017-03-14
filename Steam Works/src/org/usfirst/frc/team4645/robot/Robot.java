@@ -41,7 +41,7 @@ public class Robot extends IterativeRobot
 	
 	
 	public static final Gears gearSubsystem = new Gears();
-	public static final Vision visionSubsystem = new Vision();
+	//public static final Vision visionSubsystem = new Vision();
 	public static final Shooter shooterSubsystem = new Shooter();
 	
 	//public PDPJNI pdp= new PDPJNI();
@@ -84,6 +84,21 @@ public class Robot extends IterativeRobot
 	
 	public static boolean auto;
 
+	private static final int IMG_WIDTH = 320;
+	private static final int IMG_HEIGHT = 240;
+
+	private VisionThread visionThread;
+	private double centerXG = 1;
+	private double centerYG = 1;
+	private double widthG=1;
+	private double heightG=1;
+	private final Object imgLock = new Object();
+	
+	private int i=0;
+	
+	
+	
+	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -179,9 +194,40 @@ public class Robot extends IterativeRobot
 		
         
         //dylan wanted changes
-        RobotMap.gyroLock = 1;
-        RobotMap.zLock = 1;
-        RobotMap.xLock = 1;
+//        RobotMap.gyroLock = 1;
+//        RobotMap.zLock = 1;
+//        RobotMap.xLock = 1;
+    	
+        UsbCamera cameraGear = CameraServer.getInstance().startAutomaticCapture(1);
+        cameraGear.setResolution(IMG_WIDTH, IMG_HEIGHT);
+	    
+        visionThread = new VisionThread(cameraGear, new Pipeline(), pipeline -> 
+	    {
+	        if (!pipeline.filterContoursOutput().isEmpty())
+	        {
+	            Rect r1 = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
+	            Rect r2 = Imgproc.boundingRect(pipeline.filterContoursOutput().get(1));
+	            //Rect rSmall = Imgproc.boundingRect(pipeline.filterContoursOutput().get(1));
+	            
+	            
+	            synchronized (imgLock) 
+	            {
+	            	widthG= (r2.width+ r1.width)/2;
+		            heightG = (r1.height+r2.height)/2;
+	            	
+	            	centerXG = (r1.x + r2.x + widthG)/2;
+	               
+	               
+	               centerYG =(r1.y + r2.y + heightG)/2;
+	               i=i+1;
+	               SmartDashboard.putNumber("GearCounter", i);
+	               
+	              
+	            }
+	        }
+	    }
+	    );
+	    visionThread.start();
         
 	}
 
@@ -268,6 +314,37 @@ public class Robot extends IterativeRobot
 		SmartDashboard.putNumber("curDrivingPosiiton", SwerveDrive.drivingMotorBackRight.getEncPosition());
 
 		
+		double[] coordinateG={0,0,0,0,0,0};
+       	
+       	synchronized (imgLock) 
+       	 {
+       		coordinateG[2]= centerXG;
+       		coordinateG[3]= centerYG;
+       		 
+       		coordinateG[4]= widthG;
+       		
+       		coordinateG[5]= heightG;
+       		
+       	 }
+       	
+       	double shortestDistance =(2.0*510.0)/widthG;//calculate exact distance from camera to center of tape
+       	shortestDistance= shortestDistance * .0254; //convert to meters
+   		
+       	double sine = (coordinateG[2] -160.0) /320.0;
+   		double distanceY= Math.sqrt((shortestDistance* shortestDistance)-(.04 * .04));
+   		
+   		double distanceX = distanceY * sine;
+   		
+   		coordinateG[0]=distanceX;
+   		coordinateG[1]=distanceY;
+		
+   		SmartDashboard.putNumber("Gear: distance in X", coordinateG[1]);
+    	SmartDashboard.putNumber("Gear: centerX", coordinateG[2]);
+    	SmartDashboard.putNumber("Gear: centerY", coordinateG[3]);
+    	SmartDashboard.putNumber("Gear: width Of tape", coordinateG[4]);
+    	SmartDashboard.putNumber("Gear: height of tape", coordinateG[5]);
+    	
+   		
 		//SmartDashboard.putNumber("Error", Shooter.shooterMotor.getClosedLoopError());
 		
 		/*

@@ -38,9 +38,9 @@ public class CenterAndShootCommand extends CommandGroup
     	
         
         //updates vision values
-        double[] distanceInformation=(Robot.visionSubsystem.returnBoilerInformation());
+      //  double[] distanceInformation=(Robot.visionSubsystem.returnBoilerInformation());
         //moves in X
-        addSequential(new MoveToX(0-distanceInformation[0]));
+      //  addSequential(new MoveToX(0-distanceInformation[0]));
        
         
         //updates vision
@@ -57,8 +57,8 @@ public class CenterAndShootCommand extends CommandGroup
         	positionFinalY = RobotMap.closeY;
         }
         
-        distanceInformation=(Robot.visionSubsystem.returnBoilerInformation());
-    	addSequential(new MoveToY(positionFinalY-distanceInformation[1]));
+       // distanceInformation=(Robot.visionSubsystem.returnBoilerInformation());
+    	//addSequential(new MoveToY(positionFinalY-distanceInformation[1]));
     	
     	addSequential(new TestShoot(),5);
     	
