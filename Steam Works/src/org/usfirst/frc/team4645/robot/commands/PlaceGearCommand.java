@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class PlaceGearCommand extends CommandGroup 
 {
 
-    public PlaceGearCommand(double gearDegree, double backUpDistance) 
+    public PlaceGearCommand(double backUpDistance) 
     {
         // Add Commands here:
         // e.g. addSequential(new Command1());
@@ -31,28 +31,37 @@ public class PlaceGearCommand extends CommandGroup
         // arm.
     	//faces the gear
     	
-    	addSequential(new MakeParallel(gearDegree));
+    	//it is assumed that this command starts with the gear retroreflective tape already in view
     	
-    	//updates vision values and moves in X, drops gear
-    	double[] distanceInformation=(Robot.visionSubsystem.returnGearInformation());
-    	addSequential(new MoveToX(0-distanceInformation[0]));
+    	//makes itself parallel to the face of the airship with gear on it 
+
     	
+    	//get vision values
+    	//double[] distanceInformation=(Robot.visionSubsystem.returnGearInformation());
+    	
+    	//lines itself up in x so that the gear subsystem is directly in front of the peg
+    	//addSequential(new MoveToX(0-distanceInformation[0]));
+    	
+    	//drops the gear
     	addSequential(new DropGearCommand());
         
-    	//updates vision values and moves in Y, pushes gear
-    	distanceInformation=(Robot.visionSubsystem.returnGearInformation());
-     	addSequential(new MoveToY(RobotMap.GEAR_DISTANCE+distanceInformation[1]));
-     
-     	addSequential(new PushGearCommand());
+    	//gets vision values again
+    	//distanceInformation=(Robot.visionSubsystem.returnGearInformation());
      	
-     	//backs up and resets gear servos
-    	addSequential( new MoveToY(backUpDistance/2));
+    	//calculates how far forwards it must move to be on the peg but not hitting the airship and moves
+    	addSequential(new MoveToY(-(RobotMap.GEAR_DISTANCE-.2)));
+     	
+    	//pushes the gear onto the peg
+     	addSequential(new PushGearCommand());
+     
+     	//backs up 
+    	addSequential( new MoveToY(backUpDistance));
     	
-    	addSequential(new ResetPushGearCommand());
+    	//returns gear subsystem to intial spot
+    	addSequential(new HoldGearCommand());
     	
-    	addSequential( new MoveToY(backUpDistance/2));
     	
-    	addSequential(new ResetDropGearCommand());
+    	
     	
     	
     	

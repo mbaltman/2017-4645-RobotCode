@@ -13,50 +13,65 @@ import org.usfirst.frc.team4645.robot.commands.*;
 public class OI 
 {
 	
-	public static Joystick leftJoy = new Joystick(1);
+	public static Joystick joy = new Joystick(1);
 	
+	 Button button1_1= new JoystickButton(joy, 1);
+	 Button button1_2= new JoystickButton(joy, 2);
+	 Button button1_3= new JoystickButton(joy, 3);
+	 Button button1_4= new JoystickButton(joy, 4);
+	 Button button1_5= new JoystickButton(joy, 5);
+	 
+	 Button button1_6= new JoystickButton(joy, 6);
+	 Button button1_7= new JoystickButton(joy, 7);
+	 Button button1_8= new JoystickButton(joy, 8);
+	 Button button1_9= new JoystickButton(joy, 9);
+	 Button button1_10= new JoystickButton(joy, 10);
+	 
+	 Button button1_11= new JoystickButton(joy, 11);
+	 Button button1_12= new JoystickButton(joy, 12);
+	 
 	
-	Button buttonShoot = new JoystickButton(leftJoy, 1);
-	
-	//Button testMakeParallel = new JoystickButton(leftJoy,3);
-	Button testMoveToX = new JoystickButton(leftJoy, 4);
-	
-	//Button testMoveToY = new JoystickButton(leftJoy, 5);
-	Button buttonGear= new JoystickButton(leftJoy,6);
-	Button buttonIntake = new JoystickButton(leftJoy, 5);
-	Button buttonClimb = new JoystickButton(leftJoy, 7);
-	Button spinIn = new JoystickButton(leftJoy,10);
-	Button spinOut = new JoystickButton(leftJoy,11);
-	
-	
-	
-	
-	public static Button resetGyro = new JoystickButton(leftJoy, 7);
+	 public static Joystick joy1 = new Joystick(2);
+		
+	 Button button2_1= new JoystickButton(joy1, 1);
+	 Button button2_2= new JoystickButton(joy1, 2);
+     Button button2_3= new JoystickButton(joy1, 3);
+	 Button button2_4= new JoystickButton(joy1, 4);
+	 Button button2_5= new JoystickButton(joy1, 5);
+	 
+	 Button button2_6= new JoystickButton(joy1, 6);
+	 Button button2_7= new JoystickButton(joy1, 7);
+	 Button button2_8= new JoystickButton(joy1, 8);
+	 Button button2_9= new JoystickButton(joy1, 9);
+	 Button button2_10= new JoystickButton(joy1, 10);
+	 
+	 Button button2_11= new JoystickButton(joy1, 11);
+	 Button button2_12= new JoystickButton(joy1, 12);
+	 
+	 
 	
 	public OI()
 	{
 		
-		resetGyro.whenPressed(new ResetGyro());
-
-		
-		//buttonLeftGear.whenPressed(new PlaceGearCommand(1,1));
-	    //buttonMiddleGear.whenPressed(new PlaceGearCommand(0,1));
-		//buttonRightGear.whenPressed(new PlaceGearCommand(-1,1));
-		
-		buttonShoot.whileHeld(new ReservoirAlternate());
 		
 		
-		//buttonIntake.whileHeld(new IntakeCommand());
-		buttonClimb.whileHeld(new ClimbCommand());
-		//testMakeParallel.whenPressed(new MakeParallel(45));
-		testMoveToX.whenPressed(new MoveToX(-1));
-		buttonIntake.whileHeld(new IntakeCommand());
-		buttonGear.whenPressed(new TestGear());
+		button1_2.whileHeld(new TestShoot());
+		button1_2.whileHeld(new ReservoirCommand());
+		
+//		button1_7.whenPressed(new UseGyro());
+//		button1_8.whenPressed(new TwistLock());
+//		button1_9.whenPressed(new TankDriveLock());
+//		
 		
 		
-		//testMoveToY.whenPressed(new MoveToY(1));
+		button2_7.whenPressed(new DropGearCommand());
+		button2_9.whenPressed(new PushGearCommand());
+		button2_9.whenReleased(new HoldGearCommand());
 		
+		button2_5.whileHeld(new ClimbCommand());
+		button2_12.whileHeld(new ClimbingServo());
 		
+		button2_6.whileHeld(new IntakeCommand());
 	
 	}
 
@@ -65,3 +80,13 @@ public class OI
 	
 	// button.whenReleased(new ExampleCommand());
 }
+
+
+
+
+
+
+
+
+
+

@@ -20,20 +20,24 @@ public class RobotMap
 	public static final int hangerMotorT =3;
 	public static final int feederMotor = 6;
 	public static final int driveBL = 4; 
+	public static final int driveFL = 5; //now an sr
 	public static final int intakeMotor = 7;
 	//servos
-	public static final int reservoirServo = 0;
-	public static final int gearServoDrop = 2;
-	public static final int gearServoPush = 1; //9
-	//5
+	
+	public static final int gearServoLeft = 2;
+	public static final int gearServoRight = 1; //9
+	public static final int climbingServo = 0; 
+	
 	
 	//SRX IDs
 	public static final int steerFR = 0;
-	public static final int steerFL = 1;
-	public static final int steerBR = 2;
-	public static final int steerBL = 3;
-	public static final int driveFL = 4;
+	public static final int steerFL = 4;
+	public static final int steerBL = 2;
+	public static final int steerBR = 3;
+	public static final int reservoirMotorPort = 1;
 	public static final int driveBR = 5;
+	
+	
 	public static final int shooterMotor = 6;
 	
 	
@@ -41,9 +45,9 @@ public class RobotMap
 	
 	
 	public static final double FRONTRIGHT_ERROR = 126; //113 enforcer, 126 iron
-	public static final double FRONTLEFT_ERROR = -207; //147 enforcer, -207 iron
-	public static final double BACKRIGHT_ERROR = -49; //64 enforcer, -49
-	public static final double BACKLEFT_ERROR = 146; //21 enforcer, 146 iron
+	public static final double FRONTLEFT_ERROR = -24; //147 enforcer, -207 iron
+	public static final double BACKRIGHT_ERROR = -24; //64 enforcer, -24 iron
+	public static final double BACKLEFT_ERROR = -27; //21 enforcer, -27 iron
 	 
 	
 	//Radius angles (degrees) and value (meters)
@@ -54,6 +58,11 @@ public class RobotMap
 	
 	public static final double RADIUS = 0.427;
 	
+	//dylan wanted changes
+//	public static int gyroLock;
+//	public static int zLock;
+//	public static int xLock;
+	
 	//Shooter speeds, TBD
 	public static final double slowSpeed = -475;
 	public static final double fastSpeed = -600;
@@ -63,7 +72,7 @@ public class RobotMap
 	public static final double farY = 3;
 	
 	//gear distance, TBD
-	public static final double GEAR_DISTANCE = .20;
+	public static final double GEAR_DISTANCE = .5;
 	
 	
 	

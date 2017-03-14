@@ -35,12 +35,14 @@ public class DefaultSwerve extends Command
     protected void execute() 
     {
     	//get joystick mags
-	double tempXMag = -OI.leftJoy.getX();
-	double tempYMag = OI.leftJoy.getY();
-	double tempZMag = Robot.swerveDrive.getZMag(OI.leftJoy.getZ());
-	
-	SmartDashboard.putNumber("tempXMag", tempXMag);
-	SmartDashboard.putNumber("tempYMag", tempYMag);
+    	
+    	//dylan wanted changes (flipped forward)
+    	double tempXMag = OI.joy.getX() ;
+    	double tempYMag = -OI.joy.getY();
+    	double tempZMag = Robot.swerveDrive.getZMag(OI.joy.getZ());
+    	
+    	SmartDashboard.putNumber("tempXMag", tempXMag);
+    	SmartDashboard.putNumber("tempYMag", tempYMag);
 	
     	//get gyro position
 		double gyroAngle = SwerveDrive.gyro.getAngle(); //new code
@@ -137,6 +139,8 @@ public class DefaultSwerve extends Command
 			totalBL /= max;
 		}
 		
+		
+		
 		//calc relative magnitudes
 		double newXMagFR = Robot.swerveDrive.calcRelMagX(totalXFR, totalYFR, curFRAngle);
 		double newYMagFR = Robot.swerveDrive.calcRelMagY(totalYFR, totalXFR, curFRAngle);
@@ -162,7 +166,13 @@ public class DefaultSwerve extends Command
 			Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorBackRight, curBRPosition, positionDifBR, RobotMap.BACKRIGHT_ERROR);
 			Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorBackLeft, curBLPosition, positionDifBL, RobotMap.BACKLEFT_ERROR);
 			
-			
+			//dylan wanted changes
+//			double tempThrottle = (OI.joy.getThrottle() + 1.0) / 2.0;
+//			
+//			totalFR *= tempThrottle;
+//			totalFL *= tempThrottle;
+//			totalBR *= tempThrottle;
+//			totalBL *= tempThrottle;
 			
 			SwerveDrive.drivingMotorFrontRight.set(-totalFR);
 			SwerveDrive.drivingMotorFrontLeft.set(totalFL);
@@ -181,7 +191,7 @@ public class DefaultSwerve extends Command
 			SwerveDrive.drivingMotorBackLeft.set(0);
 		}
 		
-		
+		SmartDashboard.putString("swerve status", "execute");
     	
     }
 
@@ -194,6 +204,7 @@ public class DefaultSwerve extends Command
     // Called once after isFinished returns true
     protected void end()
     {
+    	SmartDashboard.putString("swerve status", "end");
     }
 
     // Called when another command which requires one or more of the same
@@ -204,6 +215,7 @@ public class DefaultSwerve extends Command
     	SwerveDrive.drivingMotorFrontLeft.set(0);
     	SwerveDrive.drivingMotorBackRight.set(0);
     	SwerveDrive.drivingMotorBackLeft.set(0);
+    	SmartDashboard.putString("swerve status", "interrupted");
     	
     }
     

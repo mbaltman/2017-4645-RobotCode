@@ -29,20 +29,17 @@ public class TestGear extends CommandGroup {
         // arm.
     	
     	//addSequential(new DropGearCommand());
-        addSequential(new DropGearCommand());
-        addSequential(new IntakeCommand(),1);
-    	addSequential(new PushGearCommand());
+        addSequential(new DropGearCommand(),1);
+       
+    	addSequential(new PushGearCommand(),1);
     	
     	
-    	
-    	addSequential(new IntakeCommand(),1);
+  
     	 
-    	addSequential(new ResetPushGearCommand());
-       
-    	addSequential(new IntakeCommand(),1);
-       
+    	//addSequential(new ResetPushGearCommand(),1);
+   
     	
-        addSequential(new ResetDropGearCommand());
+       // addSequential(new ResetDropGearCommand(),1);
 
       
     	
