@@ -37,15 +37,15 @@ public class DefaultSwerve extends Command
     	//get joystick mags
     	
     	//dylan wanted changes (flipped forward)
-    	double tempXMag = OI.joy.getX() * RobotMap.xLock;
+    	double tempXMag = OI.joy.getX() ;
     	double tempYMag = -OI.joy.getY();
-    	double tempZMag = Robot.swerveDrive.getZMag(OI.joy.getZ()) * RobotMap.zLock;
+    	double tempZMag = Robot.swerveDrive.getZMag(OI.joy.getZ());
     	
     	SmartDashboard.putNumber("tempXMag", tempXMag);
     	SmartDashboard.putNumber("tempYMag", tempYMag);
 	
     	//get gyro position
-		double gyroAngle = SwerveDrive.gyro.getAngle() * RobotMap.gyroLock; //new code
+		double gyroAngle = SwerveDrive.gyro.getAngle(); //new code
 		SmartDashboard.putNumber("gyroAngle", gyroAngle);
 		
     	double gyroPosition = gyroAngle * (1023.0/360.0); //2.8444
@@ -167,12 +167,12 @@ public class DefaultSwerve extends Command
 			Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorBackLeft, curBLPosition, positionDifBL, RobotMap.BACKLEFT_ERROR);
 			
 			//dylan wanted changes
-			double tempThrottle = (OI.joy.getThrottle() + 1.0) / 2.0;
-			
-			totalFR *= tempThrottle;
-			totalFL *= tempThrottle;
-			totalBR *= tempThrottle;
-			totalBL *= tempThrottle;
+//			double tempThrottle = (OI.joy.getThrottle() + 1.0) / 2.0;
+//			
+//			totalFR *= tempThrottle;
+//			totalFL *= tempThrottle;
+//			totalBR *= tempThrottle;
+//			totalBL *= tempThrottle;
 			
 			SwerveDrive.drivingMotorFrontRight.set(-totalFR);
 			SwerveDrive.drivingMotorFrontLeft.set(totalFL);

@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class PlaceGearCommand extends CommandGroup 
 {
 
-    public PlaceGearCommand(double gearDegree, double backUpDistance) 
+    public PlaceGearCommand(double backUpDistance) 
     {
         // Add Commands here:
         // e.g. addSequential(new Command1());
@@ -34,22 +34,22 @@ public class PlaceGearCommand extends CommandGroup
     	//it is assumed that this command starts with the gear retroreflective tape already in view
     	
     	//makes itself parallel to the face of the airship with gear on it 
-    	addSequential(new MakeParallel(gearDegree));
+
     	
     	//get vision values
-    	double[] distanceInformation=(Robot.visionSubsystem.returnGearInformation());
+    	//double[] distanceInformation=(Robot.visionSubsystem.returnGearInformation());
     	
     	//lines itself up in x so that the gear subsystem is directly in front of the peg
-    	addSequential(new MoveToX(0-distanceInformation[0]));
+    	//addSequential(new MoveToX(0-distanceInformation[0]));
     	
     	//drops the gear
     	addSequential(new DropGearCommand());
         
     	//gets vision values again
-    	distanceInformation=(Robot.visionSubsystem.returnGearInformation());
+    	//distanceInformation=(Robot.visionSubsystem.returnGearInformation());
      	
     	//calculates how far forwards it must move to be on the peg but not hitting the airship and moves
-    	addSequential(new MoveToY(distanceInformation[1]-RobotMap.GEAR_DISTANCE));
+    	addSequential(new MoveToY(-(RobotMap.GEAR_DISTANCE-.2)));
      	
     	//pushes the gear onto the peg
      	addSequential(new PushGearCommand());

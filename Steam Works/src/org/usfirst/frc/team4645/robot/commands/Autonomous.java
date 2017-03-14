@@ -35,7 +35,7 @@ public class Autonomous extends CommandGroup
     	//selected values
     	String position = Robot.positionChooser.getSelected();
     	String alliance = Robot.allianceChooser.getSelected();
-    	double shooterSpeed = Robot.shooterChooser.getSelected();
+    	//double shooterSpeed = Robot.shooterChooser.getSelected();
     	
     	boolean redBoiler = alliance.equals("Red") && position.equals("Boiler");
     	boolean redMiddle = alliance.equals("Red") && position.equals("Middle");
@@ -63,11 +63,11 @@ public class Autonomous extends CommandGroup
     	//find the degree the boiler is at
     	if (alliance.equals("Red"))
     	{
-    		boilerAngle = -45;
+    		boilerAngle = 45;
     	}
     	else
     	{
-    		boilerAngle = 45;
+    		boilerAngle = -45;
     	}
     	
     	
@@ -89,63 +89,56 @@ public class Autonomous extends CommandGroup
     	//turns to face gear and move forward if necessary
     	if (redBoiler)
     	{
-    		addSequential(new MakeParallel(-60));
+    		addSequential(new MakeParallel(60));
     		addSequential(new MoveToY(-1.68));
     	}
     	
     	else if (redLoading)
     	{
-    		addSequential(new MakeParallel(60));
+    		addSequential(new MakeParallel(-60));
     		addSequential(new MoveToY(-1.76));
     	}
     	
     	else if (blueBoiler)
     	{
-    		addSequential(new MakeParallel(60));
+    		addSequential(new MakeParallel(-60));
     		addSequential(new MoveToY(-1.68));
     	}
     	
     	else if (blueLoading)
     	{
-    		addSequential(new MakeParallel(-60));
+    		addSequential(new MakeParallel(60));
     		addSequential(new MoveToY(-1.76));
     	}
+    
     	
-    	//places the gear + backs up
-    	double gearAngle;
-    	if (redBoiler || blueLoading)
-    	{
-    		gearAngle = -60;
-    	}
-    	else if (redMiddle || blueMiddle)
-    	{
-    		gearAngle = 0;
-    	}
-    	else
-    	{
-    		gearAngle = 60;
-    	}
-    	addSequential(new PlaceGearCommand(gearAngle, backUpDistance));
     	
-    	//if at a loading station, move some more
-    	if (redLoading)
-    	{
-    		addSequential(new MakeParallel(-90));
-    		addSequential(new MoveToX(1.25));
-    		addSequential(new MoveToY(3.5));
-    	}
-    	else if (blueLoading)
-    	{
-    		addSequential(new MakeParallel(90));
-    		addSequential(new MoveToX(-1.25));
-    		addSequential(new MoveToY(3.5));
-    	}
+    	
+    	
+    	
+    	addSequential(new PlaceGearCommand(backUpDistance));
+    	
+    	//NO shooting from loading position
+//    	//if at a loading station, move some more
+//    	if (redLoading)
+//    	{
+//    		addSequential(new MakeParallel(-90));
+//    		addSequential(new MoveToX(1.25));
+//    		addSequential(new MoveToY(3.5));
+//    	}
+//    	else if (blueLoading)
+//    	{
+//    		addSequential(new MakeParallel(90));
+//    		addSequential(new MoveToX(-1.25));
+//    		addSequential(new MoveToY(3.5));
+//    	}
     	
     	//face boiler, center and shoot
     	if (redBoiler || blueBoiler)
     	{
     		addSequential(new MakeParallel(boilerAngle));
-    		addSequential(new CenterAndShootCommand());
+    		addSequential(new TestShoot());
+    		
     	}
     	
     }

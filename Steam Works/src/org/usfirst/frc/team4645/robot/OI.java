@@ -58,10 +58,10 @@ public class OI
 		button1_2.whileHeld(new TestShoot());
 		button1_2.whileHeld(new ReservoirCommand());
 		
-		button1_7.whenPressed(new UseGyro());
-		button1_8.whenPressed(new TwistLock());
-		button1_9.whenPressed(new TankDriveLock());
-		
+//		button1_7.whenPressed(new UseGyro());
+//		button1_8.whenPressed(new TwistLock());
+//		button1_9.whenPressed(new TankDriveLock());
+//		
 		
 		
 		button2_7.whenPressed(new DropGearCommand());

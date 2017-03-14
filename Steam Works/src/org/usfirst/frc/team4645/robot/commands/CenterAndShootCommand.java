@@ -15,7 +15,7 @@ public class CenterAndShootCommand extends CommandGroup
     {
     	
     	String alliance = Robot.allianceChooser.getSelected();
-    	double shooterSpeed = Robot.shooterChooser.getSelected();
+    	//double shooterSpeed = Robot.shooterChooser.getSelected();
        
     	/*
     	int alliance= Robot.allianceConstant;
@@ -38,27 +38,27 @@ public class CenterAndShootCommand extends CommandGroup
     	
         
         //updates vision values
-        double[] distanceInformation=(Robot.visionSubsystem.returnBoilerInformation());
+      //  double[] distanceInformation=(Robot.visionSubsystem.returnBoilerInformation());
         //moves in X
-        addSequential(new MoveToX(0-distanceInformation[0]));
+      //  addSequential(new MoveToX(0-distanceInformation[0]));
        
         
         //updates vision
         
         
         //moves Y
-        double positionFinalY;
-        if (shooterSpeed == RobotMap.fastSpeed)
-        {
-        	positionFinalY = RobotMap.farY;
-        }
-        else
-        {
-        	positionFinalY = RobotMap.closeY;
-        }
+//        double positionFinalY;
+//        if (shooterSpeed == RobotMap.fastSpeed)
+//        {
+//        	positionFinalY = RobotMap.farY;
+//        }
+//        else
+//        {
+//        	positionFinalY = RobotMap.closeY;
+//        }
         
-        distanceInformation=(Robot.visionSubsystem.returnBoilerInformation());
-    	addSequential(new MoveToY(positionFinalY-distanceInformation[1]));
+       // distanceInformation=(Robot.visionSubsystem.returnBoilerInformation());
+    	//addSequential(new MoveToY(positionFinalY-distanceInformation[1]));
     	
     	addSequential(new TestShoot(),5);
     	

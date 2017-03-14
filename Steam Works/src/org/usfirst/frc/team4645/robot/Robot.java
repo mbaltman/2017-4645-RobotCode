@@ -41,7 +41,6 @@ public class Robot extends IterativeRobot
 	
 	
 	public static final Gears gearSubsystem = new Gears();
-	public static final Vision visionSubsystem = new Vision();
 	public static final Shooter shooterSubsystem = new Shooter();
 	
 	//public PDPJNI pdp= new PDPJNI();
@@ -59,7 +58,7 @@ public class Robot extends IterativeRobot
     
     public static SendableChooser<String> positionChooser = new SendableChooser<>();
     
-    public static SendableChooser<Double> shooterChooser = new SendableChooser<>();
+    //public static SendableChooser<Double> shooterChooser = new SendableChooser<>();
     
     //basic Commands
     /*
@@ -76,14 +75,15 @@ public class Robot extends IterativeRobot
 	Command testValuesVision;
 	*/
 	
-    public static int allianceConstant=1;
+    int allianceConstant=1;
 	public String allianceColor= null;
 	
 	public String shooterPosition=  null;
 	double shooterSpeed;
 	
 	public static boolean auto;
-
+	
+	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -94,26 +94,19 @@ public class Robot extends IterativeRobot
 		oi = new OI();
 		
 		
-		
-		
-		allianceChooser.addDefault("Practice Alliance:RED", "Red");
 		allianceChooser.addObject("Blue Alliance", "Blue");
 		allianceChooser.addObject("Red Alliance", "Red");
-		
-		
+	
 		//for combined auto
-		positionChooser.addDefault("BoilerDef", "Boiler");
 		positionChooser.addObject("Boiler", "Boiler");
 		positionChooser.addObject("Middle", "Middle");
 		positionChooser.addObject("Loading Station", "Loading");
 		
-		shooterChooser.addDefault("Close", RobotMap.slowSpeed);
-		shooterChooser.addObject("Close", RobotMap.slowSpeed);
-		shooterChooser.addObject("Far", RobotMap.fastSpeed);
+		
 		
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Choose Alliance", allianceChooser);
-		SmartDashboard.putData("Choose the Shooter Distance", shooterChooser);
+		SmartDashboard.putData("Choose Position", positionChooser);
 		
 		
 		SwerveDrive.steeringMotorFrontRight.setFeedbackDevice(FeedbackDevice.AnalogEncoder);
@@ -178,11 +171,6 @@ public class Robot extends IterativeRobot
         Shooter.shooterMotor.setD(0.3); //81.84
 		
         
-        //dylan wanted changes
-        RobotMap.gyroLock = 1;
-        RobotMap.zLock = 1;
-        RobotMap.xLock = 1;
-        
 	}
 
 	/**
@@ -220,14 +208,9 @@ public class Robot extends IterativeRobot
 		
        AutonomousCommand = new Autonomous();
        
-		/*
-		 * String autoSelected = SmartDashboard.getString("Auto Selector",
-		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-		 * = new MyAutoCommand(); break; case "Default Auto": default:
-		 * autonomousCommand = new ExampleCommand(); break; }
-		 */
-
-		// schedule the autonomous command (example)
+	
+       
+       
 		if (AutonomousCommand != null)
 		{
 			AutonomousCommand.start();
@@ -268,6 +251,7 @@ public class Robot extends IterativeRobot
 		SmartDashboard.putNumber("curDrivingPosiiton", SwerveDrive.drivingMotorBackRight.getEncPosition());
 
 		
+   		
 		//SmartDashboard.putNumber("Error", Shooter.shooterMotor.getClosedLoopError());
 		
 		/*
