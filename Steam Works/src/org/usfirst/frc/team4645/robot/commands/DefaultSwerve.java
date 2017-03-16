@@ -6,9 +6,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team4645.robot.OI;
 import org.usfirst.frc.team4645.robot.subsystems.SwerveDrive;
 
-import com.ctre.CANTalon;
-import com.ctre.CANTalon.TalonControlMode;
-
 import org.usfirst.frc.team4645.robot.Robot;
 import org.usfirst.frc.team4645.robot.RobotMap;
 
@@ -158,7 +155,7 @@ public class DefaultSwerve extends Command
 		double positionDifBL = Robot.swerveDrive.getPositionDif(newXMagBL, newYMagBL);
 		
 		//set motor output
-		if (max > 0.15) 
+		if (max > 0.10) 
 		{
 			
 			Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorFrontRight, curFRPosition, positionDifFR, RobotMap.FRONTRIGHT_ERROR);
@@ -174,7 +171,7 @@ public class DefaultSwerve extends Command
 //			totalBR *= tempThrottle;
 //			totalBL *= tempThrottle;
 			
-			SwerveDrive.drivingMotorFrontRight.set(-totalFR);
+			SwerveDrive.drivingMotorFrontRight.set(totalFR);
 			SwerveDrive.drivingMotorFrontLeft.set(totalFL);
 			SwerveDrive.drivingMotorBackRight.set(totalBR);
 			SwerveDrive.drivingMotorBackLeft.set(totalBL);

@@ -1,7 +1,5 @@
 package org.usfirst.frc.team4645.robot;
 
-import com.ctre.CANTalon;
-import edu.wpi.first.wpilibj.Servo;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -17,7 +15,7 @@ public class RobotMap
 	//motors
 	public static final int driveFR = 9; //0
 	public static final int hangerMotorB = 8;
-	public static final int hangerMotorT =3;
+	public static final int hangerMotorT =0;
 	public static final int feederMotor = 6;
 	public static final int driveBL = 4; 
 	public static final int driveFL = 5; //now an sr
@@ -26,7 +24,7 @@ public class RobotMap
 	
 	public static final int gearServoLeft = 2;
 	public static final int gearServoRight = 1; //9
-	public static final int climbingServo = 0; 
+
 	
 	
 	//SRX IDs
@@ -44,10 +42,10 @@ public class RobotMap
 	//Steering errors
 	
 	
-	public static final double FRONTRIGHT_ERROR = 123; //113 enforcer, 126 iron
-	public static final double FRONTLEFT_ERROR = -17; //147 enforcer, -207 iron
-	public static final double BACKRIGHT_ERROR = -22; //64 enforcer, -24 iron
-	public static final double BACKLEFT_ERROR = -19; //21 enforcer, -27 iron
+	public static final double FRONTRIGHT_ERROR = 18; //113 enforcer, 126 iron
+	public static final double FRONTLEFT_ERROR = -3; //147 enforcer, -207 iron
+	public static final double BACKRIGHT_ERROR = -25; //64 enforcer, -24 iron
+	public static final double BACKLEFT_ERROR = -68; //21 enforcer, -27 iron
 	 
 	
 	//Radius angles (degrees) and value (meters)

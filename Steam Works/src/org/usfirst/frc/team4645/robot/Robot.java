@@ -3,7 +3,7 @@ package org.usfirst.frc.team4645.robot;
 
 import edu.wpi.cscore.UsbCamera;
 
-import edu.wpi.first.wpilibj.hal.PDPJNI;
+
 
 
 import edu.wpi.first.wpilibj.CameraServer;
@@ -91,6 +91,9 @@ public class Robot extends IterativeRobot
 	@Override
 	public void robotInit() 
 	{
+		UsbCamera cameraBoiler = CameraServer.getInstance().startAutomaticCapture(0);
+    	
+    	UsbCamera cameraGear = CameraServer.getInstance().startAutomaticCapture(1);
 		oi = new OI();
 		
 		

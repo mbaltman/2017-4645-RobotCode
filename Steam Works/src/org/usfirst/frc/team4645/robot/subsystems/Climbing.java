@@ -18,7 +18,7 @@ public class Climbing extends Subsystem
     // here. Call these from Commands.
 	public static Talon climbingTopMotor = new Talon(RobotMap.hangerMotorT);
 	public static Talon climbingBottomMotor = new Talon(RobotMap.hangerMotorB);
-	public static Servo climbingServo = new Servo(RobotMap.climbingServo);
+	
 	
     public void initDefaultCommand() 
     {
@@ -38,15 +38,7 @@ public class Climbing extends Subsystem
     
     }
     
-    public void liftServo()
-    {
-    	climbingServo.set(1);
-    }
     
-    public void dropServo()
-    {
-    	climbingServo.set(.5);
-    }
 }
 
 

@@ -1,7 +1,6 @@
 package org.usfirst.frc.team4645.robot.commands;
 
 import org.usfirst.frc.team4645.robot.Robot;
-import org.usfirst.frc.team4645.robot.OI;
 import org.usfirst.frc.team4645.robot.RobotMap;
 import org.usfirst.frc.team4645.robot.subsystems.SwerveDrive;
 
@@ -97,10 +96,10 @@ public class MoveToX extends Command
 		
 		
     		//set driving motor output
-    		finalFR = positionDifFR + RobotMap.FRONTRIGHT_ERROR > -5 && positionDifFR + RobotMap.FRONTRIGHT_ERROR < 5;
-			finalFL = positionDifFL + RobotMap.FRONTLEFT_ERROR > -5 && positionDifFL + RobotMap.FRONTLEFT_ERROR < 5;
-			finalBR = positionDifBR + RobotMap.BACKRIGHT_ERROR > -5 && positionDifBR + RobotMap.BACKRIGHT_ERROR < 5;
-			finalBL = positionDifBL + RobotMap.BACKLEFT_ERROR > -5 && positionDifBL + RobotMap.BACKLEFT_ERROR < 5;
+    		finalFR = positionDifFR + RobotMap.FRONTRIGHT_ERROR > -7 && positionDifFR + RobotMap.FRONTRIGHT_ERROR < 7;
+			finalFL = positionDifFL + RobotMap.FRONTLEFT_ERROR > -7 && positionDifFL + RobotMap.FRONTLEFT_ERROR < 7;
+			finalBR = positionDifBR + RobotMap.BACKRIGHT_ERROR > -7 && positionDifBR + RobotMap.BACKRIGHT_ERROR < 7;
+			finalBL = positionDifBL + RobotMap.BACKLEFT_ERROR > -7 && positionDifBL + RobotMap.BACKLEFT_ERROR < 7;
 		
     	}
 		
@@ -125,7 +124,7 @@ public class MoveToX extends Command
 			
 			
 			
-	        SwerveDrive.drivingMotorBackRight.configPeakOutputVoltage(3.5f, 0.0f);
+	        SwerveDrive.drivingMotorBackRight.configPeakOutputVoltage(2.5f, 0.0f);
 			SwerveDrive.drivingMotorBackRight.changeControlMode(TalonControlMode.Position);
 			SwerveDrive.drivingMotorBackRight.set(curDrivBRPosition + drivingDistance);
 			
@@ -136,11 +135,11 @@ public class MoveToX extends Command
 			double motorOutput = SwerveDrive.drivingMotorBackRight.getOutputVoltage() / 12.0;
 			SmartDashboard.putNumber("motorOutput", motorOutput);
 			
-			SwerveDrive.drivingMotorFrontRight.set(-motorOutput);
+			SwerveDrive.drivingMotorFrontRight.set(motorOutput);
 			SwerveDrive.drivingMotorFrontLeft.set(motorOutput);
 			SwerveDrive.drivingMotorBackLeft.set(motorOutput);
 			
-			if (SwerveDrive.drivingMotorBackRight.getEncPosition() < (curDrivBRPosition + drivingDistance + 4))
+			if (SwerveDrive.drivingMotorBackRight.getEncPosition() < (curDrivBRPosition + drivingDistance + 8))
 	    	{
 				SmartDashboard.putString("status2", "driving motor position done");
 				
@@ -163,10 +162,10 @@ public class MoveToX extends Command
 				Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorBackRight, curBRPosition, newPositionDifBR, RobotMap.BACKRIGHT_ERROR);
 				Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorBackLeft, curBLPosition, newPositionDifBL, RobotMap.BACKLEFT_ERROR);
 	        	
-				boolean endFR = newPositionDifFR + RobotMap.FRONTRIGHT_ERROR > -3 && newPositionDifFR + RobotMap.FRONTRIGHT_ERROR < 3;
-				boolean endFL = newPositionDifFL + RobotMap.FRONTLEFT_ERROR > -3 && newPositionDifFL + RobotMap.FRONTLEFT_ERROR < 3;
-				boolean endBR = newPositionDifBR + RobotMap.BACKRIGHT_ERROR > -3 && newPositionDifBR + RobotMap.BACKRIGHT_ERROR < 3;
-				boolean endBL = newPositionDifBL + RobotMap.BACKLEFT_ERROR > -3 && newPositionDifBL + RobotMap.BACKLEFT_ERROR < 3;
+				boolean endFR = newPositionDifFR + RobotMap.FRONTRIGHT_ERROR > -7 && newPositionDifFR + RobotMap.FRONTRIGHT_ERROR < 7;
+				boolean endFL = newPositionDifFL + RobotMap.FRONTLEFT_ERROR > -7 && newPositionDifFL + RobotMap.FRONTLEFT_ERROR < 7;
+				boolean endBR = newPositionDifBR + RobotMap.BACKRIGHT_ERROR > -7 && newPositionDifBR + RobotMap.BACKRIGHT_ERROR < 7;
+				boolean endBL = newPositionDifBL + RobotMap.BACKLEFT_ERROR > -7 && newPositionDifBL + RobotMap.BACKLEFT_ERROR < 7;
 				
 				if (endFR && endFL && endBR && endBL)
 				{

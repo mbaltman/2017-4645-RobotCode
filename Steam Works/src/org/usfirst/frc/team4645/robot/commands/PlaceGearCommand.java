@@ -1,9 +1,8 @@
 package org.usfirst.frc.team4645.robot.commands;
 
-import org.usfirst.frc.team4645.robot.Robot;
 import org.usfirst.frc.team4645.robot.RobotMap;
-
 import edu.wpi.first.wpilibj.command.CommandGroup;
+
 
 /**
  *
@@ -50,7 +49,7 @@ public class PlaceGearCommand extends CommandGroup
      	
     	//calculates how far forwards it must move to be on the peg but not hitting the airship and moves
     	
-    	//addSequential(new MoveToY(-(.5-RobotMap.GEAR_DISTANCE)));
+    	addSequential(new MoveToY(-(.5-RobotMap.GEAR_DISTANCE)));
      	
     	//pushes the gear onto the peg
      	addSequential(new PushGearCommand());

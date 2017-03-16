@@ -27,6 +27,7 @@ public class Autonomous extends CommandGroup
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
+    	addSequential(new HoldGearCommand());
     	
     	double initialDistanceY;
     	double boilerAngle;
@@ -52,7 +53,7 @@ public class Autonomous extends CommandGroup
     	}
     	else if (position.equals("Middle"))
     	{
-    		initialDistanceY = -1.925;
+    		initialDistanceY = -1.905;
     	}
     	else
     	{
@@ -74,11 +75,11 @@ public class Autonomous extends CommandGroup
     	//find distance to backup from gear
     	if (position.equals("Boiler"))
     	{
-    		backUpDistance = 1.69 - RobotMap.GEAR_DISTANCE;
+    		backUpDistance = 1.634 - RobotMap.GEAR_DISTANCE;
     	}
     	else 
     	{
-    		backUpDistance = 1;
+    		backUpDistance = .9572-RobotMap.GEAR_DISTANCE;
     	}
     	
     	
@@ -90,25 +91,25 @@ public class Autonomous extends CommandGroup
     	if (redBoiler)
     	{
     		addSequential(new MakeParallel(60));
-    		addSequential(new MoveToY(-1.49));
+    		addSequential(new MoveToY(-1.844));
     	}
     	
     	else if (redLoading)
     	{
     		addSequential(new MakeParallel(-60));
-    		addSequential(new MoveToY(-1.73));
+    		addSequential(new MoveToY(-1.754));
     	}
     	
     	else if (blueBoiler)
     	{
     		addSequential(new MakeParallel(-60));
-    		addSequential(new MoveToY(-1.49));
+    		addSequential(new MoveToY(-1.844));
     	}
     	
     	else if (blueLoading)
     	{
     		addSequential(new MakeParallel(60));
-    		addSequential(new MoveToY(-1.73));
+    		addSequential(new MoveToY(-1.754));
     	}
     
     	
@@ -134,15 +135,36 @@ public class Autonomous extends CommandGroup
 //    	}
     	
     	//face boiler, center and shoot
+    	
     	if (redBoiler || blueBoiler)
     	{
     		//addSequential (new MoveToY(1.69 - RobotMap.GEAR_DISTANCE));
     		addSequential(new MakeParallel(boilerAngle));
-    		addSequential(new MoveToX((.44 + (Math.signum(boilerAngle) * .2625)) * Math.signum(boilerAngle)));
+    		addSequential(new MoveToX((.367 + (Math.signum(boilerAngle) * .2625)) * Math.signum(boilerAngle)));
     		addParallel(new TestShoot(),8);
     		addSequential(new ReservoirCommand(),8);
-    		
-    		
+    	}
+    	
+    	else if (redMiddle)
+    	{
+    		addSequential(new MoveToX(-2.117));
+    		addSequential(new MoveToY (-.514));
+    		addSequential(new MakeParallel(boilerAngle));
+    		addParallel(new TestShoot(),8);
+    		addSequential(new ReservoirCommand(),8);
+    	}
+    	else if (blueMiddle)
+    	{
+    		addSequential(new MoveToX(2.117));
+    		addSequential(new MoveToY (-.514));
+    		addSequential(new MakeParallel(boilerAngle));
+    		addParallel(new TestShoot(),8);
+    		addSequential(new ReservoirCommand(),8);
+    	}
+    	else if (redLoading||blueLoading)
+    	{
+    		addSequential(new MakeParallel(0));
+    		addSequential(new MoveToY(2));
     	}
     	
     }
