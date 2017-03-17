@@ -18,7 +18,6 @@ public class Intake extends Subsystem
     // here. Call these from Commands.
 	public static final Talon intakeMotor =  new Talon(RobotMap.intakeMotor);
 	
-	
     public void initDefaultCommand() 
     {
         // Set the default command for a subsystem here.
@@ -26,8 +25,7 @@ public class Intake extends Subsystem
     }
     public void intakeIn()
     {
-    	intakeMotor.set(-.65);
-    	//75 percent for auto
+    	intakeMotor.set(-.85);                                     
     	
     }
     public void intakeStop()

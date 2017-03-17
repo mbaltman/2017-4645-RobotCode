@@ -42,10 +42,10 @@ public class RobotMap
 	//Steering errors
 	
 	
-	public static final double FRONTRIGHT_ERROR = 18; //113 enforcer, 126 iron
-	public static final double FRONTLEFT_ERROR = -3; //147 enforcer, -207 iron
-	public static final double BACKRIGHT_ERROR = -25; //64 enforcer, -24 iron
-	public static final double BACKLEFT_ERROR = -68; //21 enforcer, -27 iron
+	public static final double FRONTRIGHT_ERROR = 114 ;;//132 //113 enforcer, 126 iron
+	public static final double FRONTLEFT_ERROR = 33; //147 enforcer, -207 iron
+	public static final double BACKRIGHT_ERROR = 23; //10//64 enforcer, -24 iron
+	public static final double BACKLEFT_ERROR = -60; //-50//21 enforcer, -27 iron
 	 
 	
 	//Radius angles (degrees) and value (meters)

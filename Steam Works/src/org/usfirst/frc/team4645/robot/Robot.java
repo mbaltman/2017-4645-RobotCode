@@ -104,6 +104,7 @@ public class Robot extends IterativeRobot
 		positionChooser.addObject("Boiler", "Boiler");
 		positionChooser.addObject("Middle", "Middle");
 		positionChooser.addObject("Loading Station", "Loading");
+		positionChooser.addObject("Cross the Baseline","null");
 		
 		
 		
@@ -136,8 +137,8 @@ public class Robot extends IterativeRobot
         SwerveDrive.steeringMotorBackLeft.setFeedbackDevice(FeedbackDevice.AnalogEncoder);
         SwerveDrive.steeringMotorBackLeft.configNominalOutputVoltage(+0.0f, -0.0f);
         SwerveDrive.steeringMotorBackLeft.configPeakOutputVoltage(+12.0f, -12.0f);
-        SwerveDrive.steeringMotorBackLeft.setP(25);
-        SwerveDrive.steeringMotorBackLeft.setD(250);
+        SwerveDrive.steeringMotorBackLeft.setP(15);
+        SwerveDrive.steeringMotorBackLeft.setD(150);
         SwerveDrive.steeringMotorBackLeft.setAllowableClosedLoopErr(2);
         
         SwerveDrive.drivingMotorBackRight.setFeedbackDevice(FeedbackDevice.QuadEncoder);
@@ -184,7 +185,8 @@ public class Robot extends IterativeRobot
 	@Override
 	public void disabledInit() 
 	{
-		 
+		//SmartDashboard.putData("Choose Alliance", allianceChooser);
+		//SmartDashboard.putData("Choose Position", positionChooser);
 	}
 
 	@Override

@@ -34,8 +34,8 @@ public class Gears extends Subsystem
    
     public void dropGear()
     {
-    	gearLeft.set(.5);
-    	gearRight.set(.5);
+    	gearLeft.set(.5);//.4
+    	gearRight.set(.5);//.6
     }
     
     public void pushGear()

@@ -136,6 +136,7 @@ public class MoveToX extends Command
 			SmartDashboard.putNumber("motorOutput", motorOutput);
 			
 			SwerveDrive.drivingMotorFrontRight.set(motorOutput);
+			motorOutput = motorOutput * 2;
 			SwerveDrive.drivingMotorFrontLeft.set(motorOutput);
 			SwerveDrive.drivingMotorBackLeft.set(motorOutput);
 			

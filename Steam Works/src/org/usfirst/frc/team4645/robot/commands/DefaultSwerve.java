@@ -12,6 +12,7 @@ import org.usfirst.frc.team4645.robot.RobotMap;
 /**
  *
  */
+
 public class DefaultSwerve extends Command
 {
 
@@ -34,16 +35,39 @@ public class DefaultSwerve extends Command
     	//get joystick mags
     	
     	//dylan wanted changes (flipped forward)
-    	double tempXMag = OI.joy.getX() ;
+//    	double tempXMag = OI.joy.getX() ;
+//    	double tempYMag = -OI.joy.getY();
+//    	double tempZMag = Robot.swerveDrive.getZMag(OI.joy.getZ());
+//    	
+//    	//get gyro position
+//   		double gyroAngle = SwerveDrive.gyro.getAngle();
+//    	SmartDashboard.putNumber("gyroAngle", gyroAngle);
+    	
+    	  //new tankdrive solution
+    	double tempXMag;
     	double tempYMag = -OI.joy.getY();
-    	double tempZMag = Robot.swerveDrive.getZMag(OI.joy.getZ());
+    	double tempZMag;
+    	double gyroAngle;
+    	
+    	if (OI.joy.getRawButton(12))
+    	{
+    		tempXMag = 0;
+    		tempZMag = 0;
+    		gyroAngle = 0;
+    	}
+    	else
+    	{
+    		tempXMag = OI.joy.getX();
+    		tempZMag = Robot.swerveDrive.getZMag(OI.joy.getZ());
+    		gyroAngle = SwerveDrive.gyro.getAngle();
+    	}
+    	
+    	SmartDashboard.putNumber("gyroAngle", gyroAngle);
     	
     	SmartDashboard.putNumber("tempXMag", tempXMag);
     	SmartDashboard.putNumber("tempYMag", tempYMag);
 	
-    	//get gyro position
-		double gyroAngle = SwerveDrive.gyro.getAngle(); //new code
-		SmartDashboard.putNumber("gyroAngle", gyroAngle);
+    	
 		
     	double gyroPosition = gyroAngle * (1023.0/360.0); //2.8444
     	SmartDashboard.putNumber("gyroPosition", gyroPosition);
@@ -155,7 +179,8 @@ public class DefaultSwerve extends Command
 		double positionDifBL = Robot.swerveDrive.getPositionDif(newXMagBL, newYMagBL);
 		
 		//set motor output
-		if (max > 0.10) 
+
+		if (max > 0.15) 
 		{
 			
 			Robot.swerveDrive.setSteeringPosition(SwerveDrive.steeringMotorFrontRight, curFRPosition, positionDifFR, RobotMap.FRONTRIGHT_ERROR);
@@ -170,14 +195,13 @@ public class DefaultSwerve extends Command
 //			totalFL *= tempThrottle;
 //			totalBR *= tempThrottle;
 //			totalBL *= tempThrottle;
-			
+			                   
 			SwerveDrive.drivingMotorFrontRight.set(totalFR);
 			SwerveDrive.drivingMotorFrontLeft.set(totalFL);
 			SwerveDrive.drivingMotorBackRight.set(totalBR);
 			SwerveDrive.drivingMotorBackLeft.set(totalBL);
-			
-			
-			
+				
+			SmartDashboard.putString("drive", "go");
 			
 		}
 		else 
@@ -186,9 +210,11 @@ public class DefaultSwerve extends Command
 			SwerveDrive.drivingMotorFrontLeft.set(0);
 			SwerveDrive.drivingMotorBackRight.set(0);
 			SwerveDrive.drivingMotorBackLeft.set(0);
+			
+			SmartDashboard.putString("drive", "stop");
 		}
 		
-		SmartDashboard.putString("swerve status", "execute");
+		SmartDashboard.putString("swerve status", "execute"); 
     	
     }
 
