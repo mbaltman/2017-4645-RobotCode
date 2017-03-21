@@ -102,10 +102,10 @@ public class MoveToY extends Command
     	
 		
 		//set driving motor output
-    		finalFR = positionDifFR + RobotMap.FRONTRIGHT_ERROR > -7 && positionDifFR + RobotMap.FRONTRIGHT_ERROR < 7;
-			finalFL = positionDifFL + RobotMap.FRONTLEFT_ERROR > -7 && positionDifFL + RobotMap.FRONTLEFT_ERROR < 7;
-			finalBR = positionDifBR + RobotMap.BACKRIGHT_ERROR > -7 && positionDifBR + RobotMap.BACKRIGHT_ERROR < 7;
-			finalBL = positionDifBL + RobotMap.BACKLEFT_ERROR > -7 && positionDifBL + RobotMap.BACKLEFT_ERROR < 7;
+    		finalFR = positionDifFR + RobotMap.FRONTRIGHT_ERROR > -9 && positionDifFR + RobotMap.FRONTRIGHT_ERROR < 9;
+			finalFL = positionDifFL + RobotMap.FRONTLEFT_ERROR > -9 && positionDifFL + RobotMap.FRONTLEFT_ERROR < 9;
+			finalBR = positionDifBR + RobotMap.BACKRIGHT_ERROR > -9 && positionDifBR + RobotMap.BACKRIGHT_ERROR < 9;
+			finalBL = positionDifBL + RobotMap.BACKLEFT_ERROR > -9 && positionDifBL + RobotMap.BACKLEFT_ERROR < 9;
 		
     	}
 		
@@ -119,7 +119,7 @@ public class MoveToY extends Command
 			
 			isOrigPosDone = true;
 			
-	        SwerveDrive.drivingMotorBackRight.configPeakOutputVoltage(+2.5f, 0.0f);
+	        SwerveDrive.drivingMotorBackRight.configPeakOutputVoltage(+3.5f, 0.0f);
 			SwerveDrive.drivingMotorBackRight.changeControlMode(TalonControlMode.Position);
 			SwerveDrive.drivingMotorBackRight.set(curDrivBRPosition + drivingDistance);
 		

@@ -124,7 +124,7 @@ public class MoveToX extends Command
 			
 			
 			
-	        SwerveDrive.drivingMotorBackRight.configPeakOutputVoltage(2.5f, 0.0f);
+	        SwerveDrive.drivingMotorBackRight.configPeakOutputVoltage(3.25f, 0.0f);
 			SwerveDrive.drivingMotorBackRight.changeControlMode(TalonControlMode.Position);
 			SwerveDrive.drivingMotorBackRight.set(curDrivBRPosition + drivingDistance);
 			
@@ -137,6 +137,7 @@ public class MoveToX extends Command
 			
 			SwerveDrive.drivingMotorFrontRight.set(motorOutput);
 			motorOutput = motorOutput * 2;
+			
 			SwerveDrive.drivingMotorFrontLeft.set(motorOutput);
 			SwerveDrive.drivingMotorBackLeft.set(motorOutput);
 			

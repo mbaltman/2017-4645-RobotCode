@@ -50,7 +50,7 @@ public class Autonomous extends CommandGroup
     	
     	if(position.equals("null"))
     	{
-    		addSequential(new MoveToY(2));
+    		addSequential(new MoveToY(-2));
     		
     	}
     	
@@ -65,7 +65,7 @@ public class Autonomous extends CommandGroup
 	    	}
 	    	else if (position.equals("Middle"))
 	    	{
-	    		initialDistanceY = -1.905;
+	    		initialDistanceY = -1.85;
 	    	}
 	    	else 
 	    	{

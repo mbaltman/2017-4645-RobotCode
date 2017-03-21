@@ -170,9 +170,9 @@ public class Robot extends IterativeRobot
         Shooter.shooterMotor.configNominalOutputVoltage(+0.0f, -0.0f);
         Shooter.shooterMotor.configPeakOutputVoltage(12.0f, 0.0f);
         Shooter.shooterMotor.setF(0.0086); //1.557
-        Shooter.shooterMotor.setP(0.03); //4.096
+        Shooter.shooterMotor.setP(0.04); //4.096
        // Shooter.shooterMotor.setI(0); 
-        Shooter.shooterMotor.setD(0.3); //81.84
+        Shooter.shooterMotor.setD(0.4); //81.84
 		
         
 	}
@@ -192,7 +192,7 @@ public class Robot extends IterativeRobot
 	@Override
 	public void disabledPeriodic() 
 	{
-		
+		SmartDashboard.putNumber("throttle", OI.joy.getThrottle());
 		Scheduler.getInstance().run();
 	}
 

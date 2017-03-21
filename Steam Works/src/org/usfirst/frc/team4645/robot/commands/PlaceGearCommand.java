@@ -40,9 +40,11 @@ public class PlaceGearCommand extends CommandGroup
     	
     	//lines itself up in x so that the gear subsystem is directly in front of the peg
     	//addSequential(new MoveToX(0-distanceInformation[0]));
+ 
     	
-    	//drops the gear
-    	addSequential(new DropGearCommand());
+    	
+//GEAR NOT MOVING
+    	
         
     	//gets vision values again
     	//distanceInformation=(Robot.visionSubsystem.returnGearInformation());
@@ -50,14 +52,15 @@ public class PlaceGearCommand extends CommandGroup
     	//calculates how far forwards it must move to be on the peg but not hitting the airship and moves
     	
     	addSequential(new MoveToY(-(.5-RobotMap.GEAR_DISTANCE)));
+    	addSequential(new HoldGearCommand(),4);
      	
-    	//pushes the gear onto the peg
-     	addSequential(new PushGearCommand());
+//WAIT TIME FOR
+    	
      
      	//backs up 
     	addSequential( new MoveToY(backUpDistance));
     	
-    	addSequential(new DropGearCommand());
+ 
     	
     	//returns gear subsystem to intial spot
     	//addSequential(new HoldGearCommand());
