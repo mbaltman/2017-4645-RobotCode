@@ -9,6 +9,7 @@ import org.usfirst.frc.team4645.robot.RobotMap;
 import org.usfirst.frc.team4645.robot.commands.DefaultSwerve;
 import edu.wpi.first.wpilibj.GyroBase;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.DigitalInput;
 
 
 /**
@@ -28,6 +29,11 @@ public class SwerveDrive extends Subsystem
 	public static Talon drivingMotorBackLeft = new Talon(RobotMap.driveBL);
 	
 	public static GyroBase gyro = new ADXRS450_Gyro();
+	
+	
+	//limit switch for gear
+	public static DigitalInput gearSwitch = new DigitalInput(RobotMap.GEAR_SWITCH_CHANNEL);
+	
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.

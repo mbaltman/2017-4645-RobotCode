@@ -57,6 +57,11 @@ public class MoveToY extends Command
     protected void execute() 
     {
     	
+    	//limit switch for gear
+    	if (SwerveDrive.gearSwitch.get())
+    	{
+    		finished = true;
+    	}
     	
     	//get wheel positions
     	double curFRPosition = Robot.swerveDrive.getPosition(SwerveDrive.steeringMotorFrontRight);

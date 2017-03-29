@@ -58,7 +58,7 @@ public class Autonomous extends CommandGroup
     	{
 	    	
 	    	
-	    	addSequential(new HoldGearCommand());
+	    	
 	    	if (position.equals("Boiler"))
 	    	{
 	    		initialDistanceY = -1.764;
@@ -96,40 +96,48 @@ public class Autonomous extends CommandGroup
 	    	
 	    	
 	    	//moves to initial Y position
-	    	addSequential(new MoveToY(initialDistanceY));
+	    	if (redMiddle || blueMiddle)
+	    	{
+	    		addSequential(new MoveToY(initialDistanceY), 7.5);
+	    	}
+	    	else
+	    	{
+	    		addSequential(new MoveToY(initialDistanceY));
+	    	}
 	    	
 	    	
 	    	//turns to face gear and move forward if necessary
 	    	if (redBoiler)
 	    	{
 	    		addSequential(new MakeParallel(60));
-	    		addSequential(new MoveToY(-1.844));
+	    		addSequential(new MoveToY(-1.844), 7.5);
 	    	}
 	    	
 	    	else if (redLoading)
 	    	{
 	    		addSequential(new MakeParallel(-60));
-	    		addSequential(new MoveToY(-1.754));
+	    		addSequential(new MoveToY(-1.754), 7.5);
 	    	}
 	    	
 	    	else if (blueBoiler)
 	    	{
 	    		addSequential(new MakeParallel(-60));
-	    		addSequential(new MoveToY(-1.844));
+	    		addSequential(new MoveToY(-1.844), 7.5);
 	    	}
 	    	
 	    	else if (blueLoading)
 	    	{
 	    		addSequential(new MakeParallel(60));
-	    		addSequential(new MoveToY(-1.754));
+	    		addSequential(new MoveToY(-1.754), 7.5);
 	    	}
 	    
 	    	
 	    	
+	    	//place gear command was here, need to back up differently now
+	    	//just use movetoy with the calced backupdistance
+	    	addSequential(new MoveToY(backUpDistance));
 	    	
 	    	
-	    	
-	    	addSequential(new PlaceGearCommand(backUpDistance));
 	    	
 	    	//NO shooting from loading position
 	//    	//if at a loading station, move some more
@@ -153,7 +161,7 @@ public class Autonomous extends CommandGroup
 	    		//addSequential (new MoveToY(1.69 - RobotMap.GEAR_DISTANCE));
 	    		addSequential(new MakeParallel(boilerAngle));
 	    		addSequential(new MoveToX((.367 + (Math.signum(boilerAngle) * .2625)) * Math.signum(boilerAngle)));
-	    		addParallel(new TestShoot(),8);
+	    		addParallel(new ShootCommand(),8);
 	    		addSequential(new ReservoirCommand(),8);
 	    	}
 	    	
@@ -162,7 +170,7 @@ public class Autonomous extends CommandGroup
 	    		addSequential(new MoveToX(-2.117));
 	    		addSequential(new MoveToY (-.514));
 	    		addSequential(new MakeParallel(boilerAngle));
-	    		addParallel(new TestShoot(),8);
+	    		addParallel(new ShootCommand(),8);
 	    		addSequential(new ReservoirCommand(),8);
 	    	}
 	    	else if (blueMiddle)
@@ -170,7 +178,7 @@ public class Autonomous extends CommandGroup
 	    		addSequential(new MoveToX(2.117));
 	    		addSequential(new MoveToY (-.514));
 	    		addSequential(new MakeParallel(boilerAngle));
-	    		addParallel(new TestShoot(),8);
+	    		addParallel(new ShootCommand(),8);
 	    		addSequential(new ReservoirCommand(),8);
 	    	}
 	    	else if (redLoading||blueLoading)

@@ -56,10 +56,6 @@ public class RobotMap
 	
 	public static final double RADIUS = 0.427;
 	
-	//dylan wanted changes
-//	public static int gyroLock;
-//	public static int zLock;
-//	public static int xLock;
 	
 	//Shooter speeds, TBD
 	public static final double slowSpeed = -475;
@@ -70,8 +66,12 @@ public class RobotMap
 	public static final double farY = 3;
 	
 	//gear distance, TBD
-	public static final double GEAR_DISTANCE = .35;
+	public static final double GEAR_DISTANCEX = .18;
+	public static final double GEAR_DISTANCEY = .20;
 	
+	
+	//limit switch for gear
+	public static final int GEAR_SWITCH_CHANNEL = 0;
 	
 	
 }

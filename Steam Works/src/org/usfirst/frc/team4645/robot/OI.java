@@ -55,7 +55,7 @@ public class OI
 		
 		
 		
-		button1_2.whileHeld(new TestShoot());
+		button1_2.whileHeld(new ShootCommand());
 		button1_2.whileHeld(new ReservoirCommand());
 		
 		
@@ -68,9 +68,7 @@ public class OI
 		
 		//button1_6.whenPressed(new MoveToY(-3));
 		
-		button2_7.whenPressed(new DropGearCommand());
-		button2_9.whenPressed(new PushGearCommand());
-		button2_9.whenReleased(new HoldGearCommand());
+		
 		
 		button2_5.whileHeld(new ClimbCommand());
 		

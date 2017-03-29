@@ -38,12 +38,11 @@ public class Robot extends IterativeRobot
 	public static final Intake intakeSubsystem = new Intake();
 	public static final Reservoir reservoirSubsystem = new Reservoir();
 	public static final Climbing climberSubsystem = new Climbing();
+	public static final Vision visionSubsystem = Vision();
 	
-	
-	public static final Gears gearSubsystem = new Gears();
 	public static final Shooter shooterSubsystem = new Shooter();
 	
-	//public PDPJNI pdp= new PDPJNI();
+	
 	
 	
 	public static OI oi;

@@ -49,6 +49,20 @@ public class DefaultSwerve extends Command
     	double tempZMag;
     	double gyroAngle;
     	
+    	//throttle
+    	double tempThrottle = OI.joy.getThrottle();
+    	tempThrottle = (tempThrottle + 1) / 2;
+    	
+    	
+    	//limit switch for gear
+    	if (SwerveDrive.gearSwitch.get() && tempYMag < 0)
+    	{
+    		tempYMag = 0;
+    	}
+    	
+    	
+    	
+    	
     	if (OI.joy.getRawButton(12))
     	{
     		tempXMag = 0;
@@ -196,10 +210,10 @@ public class DefaultSwerve extends Command
 //			totalBR *= tempThrottle;
 //			totalBL *= tempThrottle;
 			                   
-			SwerveDrive.drivingMotorFrontRight.set(totalFR);
-			SwerveDrive.drivingMotorFrontLeft.set(totalFL);
-			SwerveDrive.drivingMotorBackRight.set(totalBR);
-			SwerveDrive.drivingMotorBackLeft.set(totalBL);
+			SwerveDrive.drivingMotorFrontRight.set(totalFR * tempThrottle);
+			SwerveDrive.drivingMotorFrontLeft.set(totalFL * tempThrottle);
+			SwerveDrive.drivingMotorBackRight.set(totalBR * tempThrottle);
+			SwerveDrive.drivingMotorBackLeft.set(totalBL * tempThrottle);
 				
 			SmartDashboard.putString("drive", "go");
 			

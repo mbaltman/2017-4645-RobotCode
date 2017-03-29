@@ -60,7 +60,7 @@ public class CenterAndShootCommand extends CommandGroup
        // distanceInformation=(Robot.visionSubsystem.returnBoilerInformation());
     	//addSequential(new MoveToY(positionFinalY-distanceInformation[1]));
     	
-    	addSequential(new TestShoot(),5);
+    	addSequential(new ShootCommand(),5);
     	
     
     }
