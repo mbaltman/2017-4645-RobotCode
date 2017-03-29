@@ -55,11 +55,14 @@ public class DefaultSwerve extends Command
     	
     	
     	//limit switch for gear
-    	if (SwerveDrive.gearSwitch.get() && tempYMag < 0)
+    	if (SwerveDrive.gearSwitch.get())
     	{
-    		tempYMag = 0;
+    		gyroAngle = 0;
+    		if (tempYMag > 0)
+    		{
+    			tempYMag = 0;
+    		}
     	}
-    	
     	
     	
     	
