@@ -29,15 +29,15 @@ public class PrintVision extends Command
     // Called repeatedly when this Command is scheduled to run
     protected void execute() 
     {
-    	double[] boilerInfo = Robot.visionSubsystem.returnBoilerInformation();
+//    	double[] boilerInfo = Robot.visionSubsystem.returnBoilerInformation();
     	double[] gearInfo = Robot.visionSubsystem.returnGearInformation();
     	
-    	SmartDashboard.putNumber("Boiler: distance in X", boilerInfo[0]);
-    	SmartDashboard.putNumber("Boiler: distance in Y", boilerInfo[1]);
-    	SmartDashboard.putNumber("Boiler: centerX", boilerInfo[2]);
-    	SmartDashboard.putNumber("Boiler: centerY",boilerInfo[3]);
-    	SmartDashboard.putNumber("Boiler: width Of tape",boilerInfo[4]);
-    	SmartDashboard.putNumber("Boiler: height of tape", boilerInfo[5]);
+//    	SmartDashboard.putNumber("Boiler: distance in X", boilerInfo[0]);
+//    	SmartDashboard.putNumber("Boiler: distance in Y", boilerInfo[1]);
+//    	SmartDashboard.putNumber("Boiler: centerX", boilerInfo[2]);
+//    	SmartDashboard.putNumber("Boiler: centerY",boilerInfo[3]);
+//    	SmartDashboard.putNumber("Boiler: width Of tape",boilerInfo[4]);
+//    	SmartDashboard.putNumber("Boiler: height of tape", boilerInfo[5]);
     	
     	SmartDashboard.putNumber("Gear: distance in X", gearInfo[0]);
     	SmartDashboard.putNumber("Gear: distance in Y", gearInfo[1]);

@@ -87,11 +87,11 @@ public class Autonomous extends CommandGroup
 	    	//find distance to backup from gear
 	    	if (position.equals("Boiler"))
 	    	{
-	    		backUpDistance = 1.634 - RobotMap.GEAR_DISTANCE;
+	    		backUpDistance = 1.634 - RobotMap.GEAR_DISTANCEY;
 	    	}
 	    	else 
 	    	{
-	    		backUpDistance = .9572-RobotMap.GEAR_DISTANCE;
+	    		backUpDistance = .9572-RobotMap.GEAR_DISTANCEY;
 	    	}
 	    	
 	    	
